@@ -12,7 +12,7 @@
                 <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onLineClick" prefHeight="26.0" prefWidth="116.0" text="Отрезок" />
                 <Button layoutY="32.0" mnemonicParsing="false" onMouseClicked="#onCircleClick" prefHeight="26.0" prefWidth="116.0" text="Окружность" />
                 <Button layoutY="63.0" mnemonicParsing="false" onMouseClicked="#onEllipseClick" prefHeight="26.0" prefWidth="116.0" text="Эллипс" />
-                <Button layoutX="14.0" layoutY="858.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="О программе" />
+                <Button layoutX="14.0" layoutY="858.0" mnemonicParsing="false" onMouseClicked="#aboutButtonClick" prefHeight="26.0" prefWidth="128.0" text="О программе" />
             </children>
         </AnchorPane>
 

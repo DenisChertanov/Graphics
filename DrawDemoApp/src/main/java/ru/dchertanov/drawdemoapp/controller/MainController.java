@@ -2,6 +2,7 @@ package ru.dchertanov.drawdemoapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Scale;
 import ru.dchertanov.drawdemoapp.algo.Figure;
@@ -76,5 +77,14 @@ public class MainController {
     @FXML
     protected void onMinusRepeatingCanvasClick() {
         zoom(repeatingCanvas, false);
+    }
+
+    @FXML
+    protected void aboutButtonClick() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("О программе:");
+        alert.setHeaderText(null);
+        alert.setContentText("Чертанов Денис БПИ185");
+        alert.showAndWait();
     }
 }
