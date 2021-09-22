@@ -5,33 +5,50 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.12017167381974249" maxHeight="700" maxWidth="1000" minHeight="700" minWidth="1000" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #ccffcc;" stylesheets="@./style.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.dchertanov.drawdemoapp.controller.MainController">
+<SplitPane dividerPositions="0.12017167381974249" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #ccffcc;"
+           xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ru.dchertanov.drawdemoapp.controller.MainController"
+           stylesheets="@./style.css">
     <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="127.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
             <children>
-                <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onLineClick" prefHeight="26.0" prefWidth="116.0" text="Отрезок" />
-                <Button layoutY="32.0" mnemonicParsing="false" onMouseClicked="#onCircleClick" prefHeight="26.0" prefWidth="116.0" text="Окружность" />
-                <Button layoutY="63.0" mnemonicParsing="false" onMouseClicked="#onEllipseClick" prefHeight="26.0" prefWidth="116.0" text="Эллипс" />
-                <Button layoutX="14.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#aboutButtonClick" prefHeight="26.0" prefWidth="128.0" text="О программе" />
+                <Button layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onLineClick" prefHeight="26.0"
+                        prefWidth="116.0" text="Отрезок"/>
+                <Button layoutY="32.0" mnemonicParsing="false" onMouseClicked="#onCircleClick" prefHeight="26.0"
+                        prefWidth="116.0" text="Окружность"/>
+                <Button layoutY="63.0" mnemonicParsing="false" onMouseClicked="#onEllipseClick" prefHeight="26.0"
+                        prefWidth="116.0" text="Эллипс"/>
+                <Button layoutX="14.0" layoutY="858.0" mnemonicParsing="false" onMouseClicked="#aboutButtonClick"
+                        prefHeight="26.0" prefWidth="128.0" text="О программе"/>
             </children>
         </AnchorPane>
 
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="900.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="900.0" prefWidth="1400.0">
             <children>
-                <ScrollPane layoutX="20.0" layoutY="57.0" prefHeight="772.0" prefWidth="550.0" style="-fx-background: white; -fx-border-color: black;">
-                    <Canvas fx:id="mainCanvas" height="4000.0" onMouseDragged="#onMainCanvasDragged" onMousePressed="#onMainCanvasPressed" onMouseReleased="#onMainCanvasMouseExited" width="4000.0" />
+                <ScrollPane layoutX="20.0" layoutY="57.0" prefHeight="772.0" prefWidth="550.0"
+                            style="-fx-background: white; -fx-border-color: black;">
+                    <Canvas fx:id="mainCanvas" height="4000.0" onMouseDragged="#onMainCanvasDragged"
+                            onMousePressed="#onMainCanvasPressed" onMouseReleased="#onMainCanvasMouseExited"
+                            width="4000.0"/>
                 </ScrollPane>
-                <ScrollPane layoutX="620.0" layoutY="57.0" prefHeight="772.0" prefWidth="550.0" style="-fx-border-color: black; -fx-background: #ccffcc;">
+                <ScrollPane layoutX="620.0" layoutY="57.0" prefHeight="772.0" prefWidth="550.0"
+                            style="-fx-border-color: black; -fx-background: #ccffcc;">
                     <opaqueInsets>
-                        <Insets left="50.0" />
+                        <Insets left="50.0"/>
                     </opaqueInsets>
-                    <Canvas fx:id="repeatingCanvas" height="4000.0" width="4000.0" />
+                    <Canvas fx:id="repeatingCanvas" height="4000.0" width="4000.0"/>
                 </ScrollPane>
-                <Button fx:id="clearButton" layoutX="277.0" layoutY="845.0" mnemonicParsing="false" onMouseClicked="#onClearButtonClick" prefHeight="39.0" prefWidth="655.0" text="Очистить" />
-                <Button fx:id="plusMainCanvas" layoutX="20.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#onPlusMainCanvasClick" text="+" />
-                <Button fx:id="minusMainCanvas" layoutX="60.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#onMinusMainCanvasClick" prefHeight="26.0" prefWidth="29.0" text="-" />
-                <Button fx:id="plusRepeatingCanvas" layoutX="620.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#onPlusRepeatingCanvasClick" text="+" />
-                <Button fx:id="minusRepeatingCanvas" layoutX="661.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#onMinusRepeatingCanvasClick" prefHeight="26.0" prefWidth="29.0" text="-" />
+                <Button fx:id="clearButton" layoutX="277.0" layoutY="845.0" mnemonicParsing="false"
+                        onMouseClicked="#onClearButtonClick" prefHeight="39.0" prefWidth="655.0" text="Очистить"/>
+                <Button fx:id="plusMainCanvas" layoutX="20.0" layoutY="23.0" mnemonicParsing="false"
+                        onMouseClicked="#onPlusMainCanvasClick" text="+"/>
+                <Button fx:id="minusMainCanvas" layoutX="60.0" layoutY="23.0" mnemonicParsing="false"
+                        onMouseClicked="#onMinusMainCanvasClick" prefHeight="26.0" prefWidth="29.0" text="-"/>
+                <Button fx:id="plusRepeatingCanvas" layoutX="620.0" layoutY="23.0" mnemonicParsing="false"
+                        onMouseClicked="#onPlusRepeatingCanvasClick" text="+"/>
+                <Button fx:id="minusRepeatingCanvas" layoutX="661.0" layoutY="23.0" mnemonicParsing="false"
+                        onMouseClicked="#onMinusRepeatingCanvasClick" prefHeight="26.0" prefWidth="29.0" text="-"/>
             </children>
         </AnchorPane>
     </items>
