@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ru.dchertanov.drawdemoapp.util.Point;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public abstract class Figure {
     /**
      * Method which draw figure on canvas by list of points.
      * Coordinates multiplied by 2 (pixels has width and height 2 for greater clarity with zoom)
+     *
      * @param gc GraphicsContext of canvas
      */
     private void drawOnCanvasByPolygons(GraphicsContext gc) {
@@ -86,9 +88,11 @@ public abstract class Figure {
     /**
      * Method for drawing on canvas by built-in libs.
      * Figure drawing on BufferedImage, then carried over to canvas.
+     *
      * @param gc GraphicsContext of canvas
      */
     public void fillRepeatingCanvas(GraphicsContext gc) {
+        clearBufferedImage();
         drawOnBufferedImage(java.awt.Color.WHITE);
 
         for (int x = 0; x < bufferedImage.getWidth(); ++x) {
@@ -105,6 +109,12 @@ public abstract class Figure {
                 gc.fillRect(x << 1, y << 1, 2, 2);
             }
         }
+    }
+
+    private void clearBufferedImage() {
+        Graphics2D graphics2D = bufferedImage.createGraphics();
+        graphics2D.setColor(java.awt.Color.BLACK);
+        graphics2D.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
     }
 
     /**
