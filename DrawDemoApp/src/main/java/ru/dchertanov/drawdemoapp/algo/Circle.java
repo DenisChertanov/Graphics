@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import ru.dchertanov.drawdemoapp.util.Point;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Circle extends Figure {
     @Override
@@ -17,15 +16,15 @@ public class Circle extends Figure {
         int delta = 2 - 2 * r;
 
         while (y >= 0) {
-            plotPoints(x, y, localStartPoint.getX(), localStartPoint.getY());
+            addPointsToList(x, y, localStartPoint.getX(), localStartPoint.getY());
 
-            if (delta < 0 && 2 * delta + 2 * y - 1 <= 0) {
+            if (delta < 0 && 2 * delta + 2 * y - 1 <= 0) { // handle horizontal step
                 x++;
                 delta += 2 * x + 1;
-            } else if (delta > 0 && 2 * delta - 2 * x - 1 > 0) {
+            } else if (delta > 0 && 2 * delta - 2 * x - 1 > 0) { // handle vertical step
                 y--;
                 delta -= 2 * y + 1;
-            } else {
+            } else { // handle diagonal step
                 x++;
                 y--;
                 delta += 2 * x - 2 * y + 2;
@@ -40,7 +39,10 @@ public class Circle extends Figure {
         gc.fillOval(startPoint.getX() - r, startPoint.getY() - r, r * 2, r * 2);
     }
 
-    private void plotPoints(int x, int y, int x0, int y0) {
+    /**
+     * Add given point (and its analogs for other quadrants) to list
+     */
+    private void addPointsToList(int x, int y, int x0, int y0) {
         pixels.add(new Point(x0 + x, y0 + y));
         pixels.add(new Point(x0 + x, y0 - y));
         pixels.add(new Point(x0 - x, y0 - y));
@@ -48,7 +50,7 @@ public class Circle extends Figure {
     }
 
     @Override
-    public void drawOnBufferedImage(BufferedImage bufferedImage, Color color) {
+    public void drawOnBufferedImage(Color color) {
         Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
         Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
 

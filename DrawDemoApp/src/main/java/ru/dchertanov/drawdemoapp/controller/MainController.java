@@ -36,14 +36,6 @@ public class MainController {
         repeatingCanvas.getGraphicsContext2D().clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
     }
 
-    private void zoom(Canvas canvas, boolean increase) {
-        if (increase) {
-            canvas.getTransforms().add(new Scale(1.5, 1.5));
-        } else {
-            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
-        }
-    }
-
     @FXML
     protected void onLineClick() {
         currentFigure = Figure.getInstance("line");
@@ -57,6 +49,14 @@ public class MainController {
     @FXML
     protected void onEllipseClick() {
         currentFigure = Figure.getInstance("ellipse");
+    }
+
+    private void zoom(Canvas canvas, boolean increase) {
+        if (increase) {
+            canvas.getTransforms().add(new Scale(1.5, 1.5));
+        } else {
+            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
+        }
     }
 
     @FXML

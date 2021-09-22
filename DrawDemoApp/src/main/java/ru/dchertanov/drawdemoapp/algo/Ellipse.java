@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import ru.dchertanov.drawdemoapp.util.Point;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Ellipse extends Figure {
     @Override
@@ -22,7 +21,7 @@ public class Ellipse extends Figure {
         int cy = localStartPoint.getY();
 
         boolean isEllipseTurned = false;
-        if (xr > yr) {
+        if (xr > yr) { // if horizontal radius more than vertical radius, swap this (after we will turn figure by 90 degrees)
             isEllipseTurned = true;
             int tmp = xr;
             xr = yr;
@@ -35,21 +34,21 @@ public class Ellipse extends Figure {
         int y = yr;
         int delta = yr2 + xr2 - 2 * yr * xr2;
 
-        int xr2Change = y * xr2;
-        int yr2Change = 0;
+        int xr2Change = y * xr2; // optimization for y * xr2 (y changes only by 1, so instead of multiplication, we can use addition)
+        int yr2Change = 0; // optimization for x * yr2 (x changes only by 1, so instead of multiplication, we can use addition)
 
         while (y >= 0) {
-            plotPoints(x, y, cx, cy, isEllipseTurned);
+            addPointsToList(x, y, cx, cy, isEllipseTurned);
 
-            if (delta < 0 && 2 * delta + 2 * xr2Change - xr2 <= 0) {
+            if (delta < 0 && 2 * delta + 2 * xr2Change - xr2 <= 0) { // handle horizontal step
                 x++;
                 yr2Change += yr2;
                 delta += 2 * yr2Change + yr2;
-            } else if (delta > 0 && 2 * delta - 2 * yr2Change - yr2 > 0) {
+            } else if (delta > 0 && 2 * delta - 2 * yr2Change - yr2 > 0) { // handle vertical step
                 y--;
                 xr2Change -= xr2;
                 delta -= 2 * xr2Change + xr2;
-            } else {
+            } else { // handle diagonal step
                 x++;
                 y--;
                 yr2Change += yr2;
@@ -59,8 +58,11 @@ public class Ellipse extends Figure {
         }
     }
 
-    private void plotPoints(int x, int y, int cx, int cy, boolean isEllipseTurned) {
-        if (isEllipseTurned) {
+    /**
+     * Add given point (and its analogs for other quadrants) to list
+     */
+    private void addPointsToList(int x, int y, int cx, int cy, boolean isEllipseTurned) {
+        if (isEllipseTurned) { // turn ellipse by 90 degrees
             int tmp = x;
             x = y;
             y = tmp;
@@ -82,7 +84,7 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public void drawOnBufferedImage(BufferedImage bufferedImage, java.awt.Color color) {
+    public void drawOnBufferedImage(java.awt.Color color) {
         Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
         Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
 

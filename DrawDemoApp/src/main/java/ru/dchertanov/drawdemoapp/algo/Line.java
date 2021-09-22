@@ -11,14 +11,14 @@ public class Line extends Figure {
     public void generatePixels() {
         prepareEnvironment();
 
-        int currentX = localStartPoint.getX(), currentY = localStartPoint.getY();
+        int x = localStartPoint.getX(), y = localStartPoint.getY();
         int deltaX = Math.abs(localEndPoint.getX() - localStartPoint.getX());
         int deltaY = Math.abs(localEndPoint.getY() - localStartPoint.getY());
-        int s1 = Integer.signum(localEndPoint.getX() - localStartPoint.getX());
-        int s2 = Integer.signum(localEndPoint.getY() - localStartPoint.getY());
+        int s1 = Integer.signum(localEndPoint.getX() - localStartPoint.getX()); // +1 or -1 by X which may simply add to variable which changes by 1 modulo each step
+        int s2 = Integer.signum(localEndPoint.getY() - localStartPoint.getY()); // +1 or -1 by X which may simply add to variable which changes by 1 modulo each step
 
         boolean isPointsSwapped = false;
-        if (deltaY > deltaX) {
+        if (deltaY > deltaX) { // handle different octant
             int tmp = deltaX;
             deltaX = deltaY;
             deltaY = tmp;
@@ -27,22 +27,22 @@ public class Line extends Figure {
 
         int error = 2 * deltaY - deltaX, step = 1;
         while (step <= deltaX) {
-            pixels.add(new Point(currentX, currentY));
+            pixels.add(new Point(x, y));
 
             if (error >= 0) {
                 if (isPointsSwapped) {
-                    currentX += s1;
+                    x += s1;
                 } else {
-                    currentY += s2;
+                    y += s2;
                 }
 
                 error -= 2 * deltaX;
             }
 
             if (isPointsSwapped) {
-                currentY += s2;
+                y += s2;
             } else {
-                currentX += s1;
+                x += s1;
             }
 
             error += 2 * deltaY;
@@ -51,7 +51,7 @@ public class Line extends Figure {
     }
 
     @Override
-    public void drawOnBufferedImage(BufferedImage bufferedImage, Color color) {
+    public void drawOnBufferedImage(Color color) {
         Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
         Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
 
@@ -60,6 +60,7 @@ public class Line extends Figure {
         graphics2D.drawLine(localStartPoint.getX(), localStartPoint.getY(), localEndPoint.getX(), localEndPoint.getY());
     }
 
+    @Override
     public void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, javafx.scene.paint.Color color) {
         gc.setLineWidth(width);
         gc.setStroke(color);
