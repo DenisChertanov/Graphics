@@ -34,7 +34,7 @@
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
-        <Canvas fx:id="mainCanvas" height="4000.0" width="4000.0" onMouseDragged="#onMainCanvasDragged"
+        <Canvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseDragged="#onMainCanvasDragged"
                 onMousePressed="#onMainCanvasPressed" onMouseReleased="#onMainCanvasMouseExited"/>
     </ScrollPane>
     <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
@@ -42,7 +42,7 @@
         <GridPane.margin>
             <Insets left="20"/>
         </GridPane.margin>
-        <Canvas fx:id="repeatingCanvas" height="4000.0" width="4000.0"/>
+        <Canvas fx:id="repeatingCanvas" height="2000.0" width="2000.0"/>
     </ScrollPane>
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
