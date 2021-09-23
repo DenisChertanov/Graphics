@@ -47,6 +47,9 @@
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
           GridPane.rowSpan="1" spacing="5">
+        <GridPane.margin>
+            <Insets right="20"/>
+        </GridPane.margin>
         <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
         <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
     </HBox>
