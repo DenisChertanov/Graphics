@@ -79,14 +79,6 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <artifactId>maven-jlink-plugin</artifactId>-->
-<!--                <version>3.1.0</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; configuration elements goes here &ndash;&gt;-->
-<!--                </configuration>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 </project>
