@@ -5,19 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.io.IOException;
 
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view.fxml"));
         var screen = Screen.getPrimary().getBounds();
         Scene scene = new Scene(fxmlLoader.load(), screen.getWidth() * 2 / 3, screen.getHeight() * 2 / 3);
         stage.setTitle("DrawDemoApp");
         stage.setScene(scene);
-//        stage.setResizable(false);
         stage.show();
     }
 
