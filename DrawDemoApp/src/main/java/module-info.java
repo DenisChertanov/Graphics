@@ -1,4 +1,4 @@
-module primitives_demo {
+module draw_demo_app {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
