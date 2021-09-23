@@ -41,7 +41,7 @@ sourceSets {
 processResources.duplicatesStrategy(DuplicatesStrategy.WARN)
 
 application {
-    mainModule = 'primitives_demo'
+    mainModule = 'draw_demo_app'
     mainClass = 'ru.dchertanov.drawdemoapp.Main'
 }
 
@@ -52,6 +52,6 @@ run {
 
 jlink {
     launcher{
-        name = 'primitives-demo'
+        name = 'draw_demo_app'
     }
 }
