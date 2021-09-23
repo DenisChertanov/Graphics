@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+
+<?import javafx.geometry.Insets?>
+<GridPane style="-fx-background-color: #ccffcc;"
+          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.dchertanov.drawdemoapp.controller.MainController"
+          stylesheets="@./style.css">
+
+    <padding>
+        <Insets left="5" right="50" top="30" bottom="5">
+
+        </Insets>
+    </padding>
+
+    <VBox spacing="10" alignment="TOP_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="10">
+
+            </Insets>
+        </padding>
+        <Button maxWidth="Infinity" onMouseClicked="#onLineClick" text="Отрезок"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onCircleClick" text="Окружность"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onEllipseClick" text="Эллипс"/>
+    </VBox>
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1" GridPane.rowSpan="1">
+        <Button onMouseClicked="#aboutButtonClick" text="О программе"/>
+    </HBox>
+
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
+                style="-fx-background: white; -fx-border-color: black;">
+        <Canvas fx:id="mainCanvas" height="4000.0" width="4000.0" onMouseDragged="#onMainCanvasDragged"
+                onMousePressed="#onMainCanvasPressed" onMouseReleased="#onMainCanvasMouseExited"/>
+    </ScrollPane>
+    <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
+                style="-fx-border-color: black; -fx-background: #ccffcc;">
+        <Canvas fx:id="repeatingCanvas" height="4000.0" width="4000.0"/>
+    </ScrollPane>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+        <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+        <Button onMouseClicked="#onPlusRepeatingCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusRepeatingCanvasClick" text="-"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" GridPane.rowSpan="1">
+        <Button onMouseClicked="#onClearButtonClick" text="Очистить"/>
+    </HBox>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" minWidth="160" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+    </rowConstraints>
+</GridPane>
