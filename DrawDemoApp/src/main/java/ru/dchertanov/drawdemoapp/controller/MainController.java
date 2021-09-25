@@ -4,51 +4,83 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
-import ru.dchertanov.drawdemoapp.algo.Figure;
+import ru.dchertanov.drawdemoapp.algo.FloodFill;
+import ru.dchertanov.drawdemoapp.figures.Figure;
+import ru.dchertanov.drawdemoapp.util.PixelatedCanvas;
+import ru.dchertanov.drawdemoapp.util.Point;
 
 public class MainController {
     @FXML
-    private Canvas mainCanvas;
+    private PixelatedCanvas mainCanvas;
     @FXML
-    private Canvas repeatingCanvas;
+    private PixelatedCanvas repeatingCanvas;
 
     private Figure currentFigure = Figure.getInstance("line");
+    private boolean isFillMode = false;
+
+    @FXML
+    protected void onMainCanvasClick(MouseEvent mouseEvent) {
+        if (!isFillMode)
+            return;
+
+        FloodFill.fillByRowsWithPoint(mainCanvas, PixelatedCanvas.getRGBFromColor(Color.PINK),
+                new Point((int) mouseEvent.getX() / 2, (int) mouseEvent.getY() / 2));
+    }
 
     @FXML
     protected void onMainCanvasPressed(MouseEvent mouseEvent) {
+        if (currentFigure == null)
+            return;
+
         currentFigure.setFigureStartPoint((int) mouseEvent.getX(), (int) mouseEvent.getY());
     }
 
     @FXML
     protected void onMainCanvasDragged(MouseEvent mouseEvent) {
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), mainCanvas.getGraphicsContext2D());
+        if (currentFigure == null)
+            return;
+
+        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), mainCanvas);
     }
 
     @FXML
     protected void onMainCanvasMouseExited() {
+        if (currentFigure == null)
+            return;
+
         currentFigure.fillRepeatingCanvas(repeatingCanvas.getGraphicsContext2D());
     }
 
     @FXML
     protected void onClearButtonClick() {
-        mainCanvas.getGraphicsContext2D().clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
-        repeatingCanvas.getGraphicsContext2D().clearRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+        mainCanvas.clear();
+        repeatingCanvas.clear();
     }
 
     @FXML
     protected void onLineClick() {
         currentFigure = Figure.getInstance("line");
+        isFillMode = false;
     }
 
     @FXML
     protected void onCircleClick() {
         currentFigure = Figure.getInstance("circle");
+        isFillMode = false;
     }
 
     @FXML
     protected void onEllipseClick() {
         currentFigure = Figure.getInstance("ellipse");
+        isFillMode = false;
+    }
+
+    @FXML
+    protected void onFillClick() {
+        isFillMode = true;
+        currentFigure = null;
     }
 
     private void zoom(Canvas canvas, boolean increase) {
@@ -77,6 +109,11 @@ public class MainController {
     @FXML
     protected void onMinusRepeatingCanvasClick() {
         zoom(repeatingCanvas, false);
+    }
+
+    @FXML
+    protected void onChooseColorClick() {
+        // choose fill color
     }
 
     @FXML

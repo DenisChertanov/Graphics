@@ -1,4 +1,4 @@
-package ru.dchertanov.drawdemoapp.algo;
+package ru.dchertanov.drawdemoapp.figures;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
