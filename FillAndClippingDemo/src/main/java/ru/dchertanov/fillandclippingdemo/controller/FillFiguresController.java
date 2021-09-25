@@ -123,11 +123,7 @@ public class FillFiguresController {
 
     @FXML
     protected void backToMainClick() throws IOException {
-        Stage stage = (Stage) mainCanvas.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(scene);
-        stage.show();
+        MainViewController.backToMainClick((Stage) mainCanvas.getScene().getWindow());
     }
 
     @FXML

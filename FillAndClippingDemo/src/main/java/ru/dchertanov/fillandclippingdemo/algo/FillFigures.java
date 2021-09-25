@@ -7,11 +7,11 @@ import java.util.Stack;
 import java.util.function.IntUnaryOperator;
 
 public class FillFigures {
-    private FillFigures() {
-    }
-
     private static int previousColor;
     private static PixelatedCanvas canvas;
+
+    private FillFigures() {
+    }
 
     public static void fillByRowsWithPoint(PixelatedCanvas canvas, int fillColor, Point point) {
         canvas.clearFillUsed();

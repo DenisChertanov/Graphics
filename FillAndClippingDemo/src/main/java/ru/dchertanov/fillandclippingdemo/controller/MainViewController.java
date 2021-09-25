@@ -36,4 +36,11 @@ public class MainViewController {
     protected void onClippingClick() throws IOException {
 //        loadScene("fill-figure-view.fxml");
     }
+
+    public static void backToMainClick(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), stage.getScene().getWidth(), stage.getScene().getHeight());
+        stage.setScene(scene);
+        stage.show();
+    }
 }

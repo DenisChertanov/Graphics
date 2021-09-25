@@ -3,6 +3,8 @@ package ru.dchertanov.fillandclippingdemo.util;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import ru.dchertanov.fillandclippingdemo.figures.Figure;
+import ru.dchertanov.fillandclippingdemo.figures.Line;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,6 +85,14 @@ public class PixelatedCanvas extends Canvas {
         GraphicsContext gc = getGraphicsContext2D();
         gc.setFill(getColorFromRGB(rgb));
         gc.fillRect(xStart * pixelSide, y * pixelSide, (xEnd - xStart + 1) * pixelSide, pixelSide);
+    }
+
+    public void drawLine(Point startPoint, Point endPoint) {
+        Figure line = Figure.getInstance("line");
+        line.setFigureStartPoint(startPoint.getX(), startPoint.getY());
+        line.setFigureEndPoint(endPoint.getX(), endPoint.getY());
+        line.generatePixels();
+        drawByPixels(line.getPixels(), true);
     }
 
     public boolean isPixelInsideCanvas(int x, int y) {
