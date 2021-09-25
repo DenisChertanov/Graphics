@@ -1,8 +1,7 @@
-package ru.dchertanov.drawdemoapp.figures;
+package ru.dchertanov.drawdemoapp.algo;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import ru.dchertanov.drawdemoapp.util.PixelatedCanvas;
 import ru.dchertanov.drawdemoapp.util.Point;
 
 import java.awt.*;
@@ -57,16 +56,33 @@ public abstract class Figure {
      */
     public abstract void drawOnBufferedImage(java.awt.Color color);
 
+    /**
+     * Method which draw figure on canvas by list of points.
+     * Coordinates multiplied by 2 (pixels has width and height 2 for greater clarity with zoom)
+     *
+     * @param gc GraphicsContext of canvas
+     */
+    private void drawOnCanvasByPolygons(GraphicsContext gc) {
+        if (pixels.isEmpty())
+            return;
+
+        gc.setStroke(Color.BLACK);
+        gc.setFill(Color.BLACK);
+        for (Point point : pixels) {
+            gc.fillRect(point.getX() << 1, point.getY() << 1, 2, 2);
+        }
+    }
+
     public void setFigureStartPoint(int x, int y) {
         startPoint = new Point(x, y);
         endPoint = new Point(x, y);
     }
 
-    public void drawCustomFigureByEndPoint(int x, int y, PixelatedCanvas canvas) {
-        removePreviousFigureFromCanvasByLib(canvas.getGraphicsContext2D(), 8, Color.WHITE);
+    public void drawCustomFigureByEndPoint(int x, int y, GraphicsContext gc) {
+        removePreviousFigureFromCanvasByLib(gc, 8, Color.WHITE);
         endPoint = new Point(x, y);
         generatePixels();
-        canvas.drawByPixels(pixels);
+        drawOnCanvasByPolygons(gc);
     }
 
     /**

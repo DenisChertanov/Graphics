@@ -1,4 +1,4 @@
-package ru.dchertanov.drawdemoapp.figures;
+package ru.dchertanov.drawdemoapp.algo;
 
 import javafx.scene.canvas.GraphicsContext;
 import ru.dchertanov.drawdemoapp.util.Point;
