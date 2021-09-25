@@ -6,8 +6,8 @@ import ru.dchertanov.fillandclippingdemo.util.Point;
 import java.util.Stack;
 import java.util.function.IntUnaryOperator;
 
-public class FloodFill {
-    private FloodFill() {
+public class FillFigures {
+    private FillFigures() {
     }
 
     private static int previousColor;
@@ -16,7 +16,7 @@ public class FloodFill {
     public static void fillByRowsWithPoint(PixelatedCanvas canvas, int fillColor, Point point) {
         canvas.clearFillUsed();
         previousColor = canvas.getPixelRGB(point.getX(), point.getY());
-        FloodFill.canvas = canvas;
+        FillFigures.canvas = canvas;
 
         Stack<Point> stack = new Stack<>();
         stack.push(point);

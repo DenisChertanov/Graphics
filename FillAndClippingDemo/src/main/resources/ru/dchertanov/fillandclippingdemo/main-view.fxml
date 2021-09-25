@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane style="-fx-background-color: #ccffcc;"
+          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+          fx:id="gridPane"
+          fx:controller="ru.dchertanov.fillandclippingdemo.controller.MainViewController">
+
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button text="Заливка фигур" maxHeight="50" onMouseClicked="#onFillFigureClick"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button text="Заливка полигона" maxHeight="50" onMouseClicked="#onFillPolygonClick"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button text="Отсечение" maxHeight="50"/>
+    </HBox>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+    </rowConstraints>
+</GridPane>

@@ -1,33 +1,52 @@
 package ru.dchertanov.fillandclippingdemo.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
-import ru.dchertanov.fillandclippingdemo.algo.FloodFill;
+import javafx.stage.Stage;
+import ru.dchertanov.fillandclippingdemo.MainApplication;
+import ru.dchertanov.fillandclippingdemo.algo.FillFigures;
 import ru.dchertanov.fillandclippingdemo.figures.Figure;
 import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
-public class MainController {
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class FillFiguresController {
     @FXML
     private PixelatedCanvas mainCanvas;
     @FXML
     private ColorPicker colorPicker;
+    @FXML
+    private Button backButton;
 
     private Figure currentFigure = Figure.getInstance("line");
     private boolean isFillMode = false;
+
+    public void initialize() {
+        Image image = new Image("back_arrow.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(20);
+        backButton.setGraphic(imageView);
+    }
 
     @FXML
     protected void onMainCanvasClick(MouseEvent mouseEvent) {
         if (!isFillMode)
             return;
 
-        FloodFill.fillByRowsWithPoint(mainCanvas, PixelatedCanvas.getRGBFromColor(colorPicker.getValue()),
+        FillFigures.fillByRowsWithPoint(mainCanvas, PixelatedCanvas.getRGBFromColor(colorPicker.getValue()),
                 new Point((int) mouseEvent.getX() / 2, (int) mouseEvent.getY() / 2));
     }
 
@@ -100,6 +119,15 @@ public class MainController {
     @FXML
     protected void onMinusMainCanvasClick() {
         zoom(mainCanvas, false);
+    }
+
+    @FXML
+    protected void backToMainClick() throws IOException {
+        Stage stage = (Stage) mainCanvas.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), stage.getScene().getWidth(), stage.getScene().getHeight());
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

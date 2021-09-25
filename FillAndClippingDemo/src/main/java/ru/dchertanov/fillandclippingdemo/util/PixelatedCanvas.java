@@ -13,6 +13,12 @@ public class PixelatedCanvas extends Canvas {
     private final int[][] pixelsColor = new int[canvasSide][canvasSide];
     private final boolean[][] usedForFill = new boolean[canvasSide][canvasSide];
 
+    {
+        for (int y = 0; y < canvasSide; ++y) {
+            Arrays.fill(pixelsColor[y], getRGBFromColor(Color.WHITE));
+        }
+    }
+
     public static int getRGBFromColor(Color color) {
         int r = ((int) (color.getRed() * 255));
         int g = ((int) (color.getGreen() * 255));
@@ -68,14 +74,6 @@ public class PixelatedCanvas extends Canvas {
             gc.setFill(getColorFromRGB(pixelsColor[point.getY() * pixelSide][point.getX() * pixelSide]));
             gc.fillRect(point.getX() * pixelSide, point.getY() * pixelSide, pixelSide, pixelSide);
         }
-    }
-
-    public void drawPixel(int x, int y, int rgb) {
-        pixelsColor[y * pixelSide][x * pixelSide] = rgb;
-
-        GraphicsContext gc = getGraphicsContext2D();
-        gc.setFill(getColorFromRGB(rgb));
-        gc.fillRect(x * pixelSide, y * pixelSide, pixelSide, pixelSide);
     }
 
     public void fillHorizontalLine(int xStart, int xEnd, int y, int rgb) {
