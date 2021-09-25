@@ -1,10 +1,9 @@
-package ru.dchertanov.drawdemoapp.algo;
+package ru.dchertanov.drawdemoapp.figures;
 
 import javafx.scene.canvas.GraphicsContext;
 import ru.dchertanov.drawdemoapp.util.Point;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Line extends Figure {
     @Override
