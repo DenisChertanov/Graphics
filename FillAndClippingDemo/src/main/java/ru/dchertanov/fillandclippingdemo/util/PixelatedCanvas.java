@@ -11,12 +11,12 @@ public class PixelatedCanvas extends Canvas {
     private final int canvasSide = 2000;
     private final int pixelSide = 2;
     private final int[][] pixelsColor = new int[canvasSide][canvasSide];
-    private final boolean[][] used = new boolean[canvasSide][canvasSide];
+    private final boolean[][] usedForFill = new boolean[canvasSide][canvasSide];
 
     public static int getRGBFromColor(Color color) {
-        int r = ((int) color.getRed() * 255);
-        int g = ((int) color.getGreen() * 255);
-        int b = ((int) color.getBlue() * 255);
+        int r = ((int) (color.getRed() * 255));
+        int g = ((int) (color.getGreen() * 255));
+        int b = ((int) (color.getBlue() * 255));
         return (r << 16) + (g << 8) + b;
     }
 
@@ -38,8 +38,7 @@ public class PixelatedCanvas extends Canvas {
      *
      * @param pixels list of pixels
      */
-    public void drawByPixels(List<Point> pixels) {
-        clearPixelsColor(); // удалить после добавления 2го канваса!!!
+    public void drawByPixels(List<Point> pixels, boolean endOfDrawing) {
         if (pixels.isEmpty())
             return;
 
@@ -50,7 +49,23 @@ public class PixelatedCanvas extends Canvas {
             if (!isPixelInsideCanvas(point.getX() * pixelSide, point.getY() * pixelSide))
                 continue;
 
-            pixelsColor[point.getY() * pixelSide][point.getX() * pixelSide] = rgb;
+            if (endOfDrawing) {
+                pixelsColor[point.getY() * pixelSide][point.getX() * pixelSide] = rgb;
+            }
+            gc.fillRect(point.getX() * pixelSide, point.getY() * pixelSide, pixelSide, pixelSide);
+        }
+    }
+
+    public void removePreviousPixels(List<Point> pixels) {
+        if (pixels.isEmpty())
+            return;
+
+        GraphicsContext gc = getGraphicsContext2D();
+        for (Point point : pixels) {
+            if (!isPixelInsideCanvas(point.getX() * pixelSide, point.getY() * pixelSide))
+                continue;
+
+            gc.setFill(getColorFromRGB(pixelsColor[point.getY() * pixelSide][point.getX() * pixelSide]));
             gc.fillRect(point.getX() * pixelSide, point.getY() * pixelSide, pixelSide, pixelSide);
         }
     }
@@ -65,7 +80,7 @@ public class PixelatedCanvas extends Canvas {
 
     public void fillHorizontalLine(int xStart, int xEnd, int y, int rgb) {
         Arrays.fill(pixelsColor[y * pixelSide], xStart * pixelSide, xEnd * pixelSide + pixelSide, rgb);
-        Arrays.fill(used[y * pixelSide], xStart * pixelSide, xEnd * pixelSide + pixelSide, true);
+        Arrays.fill(usedForFill[y * pixelSide], xStart * pixelSide, xEnd * pixelSide + pixelSide, true);
 
         GraphicsContext gc = getGraphicsContext2D();
         gc.setFill(getColorFromRGB(rgb));
@@ -84,12 +99,12 @@ public class PixelatedCanvas extends Canvas {
     }
 
     public boolean isPixelFilled(int x, int y) {
-        return used[y * pixelSide][x * pixelSide];
+        return usedForFill[y * pixelSide][x * pixelSide];
     }
 
     public void clearFillUsed() {
         for (int y = 0; y < canvasSide; ++y) {
-            Arrays.fill(used[y], false);
+            Arrays.fill(usedForFill[y], false);
         }
     }
 

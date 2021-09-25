@@ -1,10 +1,6 @@
 package ru.dchertanov.fillandclippingdemo.figures;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import ru.dchertanov.fillandclippingdemo.util.Point;
-
-import java.awt.*;
 
 public class Ellipse extends Figure {
     @Override
@@ -72,14 +68,5 @@ public class Ellipse extends Figure {
         pixels.add(new Point(cx - x, cy + y));
         pixels.add(new Point(cx - x, cy - y));
         pixels.add(new Point(cx + x, cy - y));
-    }
-
-    @Override
-    public void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, Color color) {
-        int xr = (Math.abs(startPoint.getX() - endPoint.getX()) + 8) << 1;
-        int yr = (Math.abs(startPoint.getY() - endPoint.getY()) + 8) << 1;
-
-        gc.setFill(color);
-        gc.fillOval(startPoint.getX() - xr / 2.0, startPoint.getY() - yr / 2.0, xr, yr);
     }
 }

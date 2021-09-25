@@ -23,7 +23,7 @@
         <Button maxWidth="Infinity" onMouseClicked="#onLineClick" text="Отрезок"/>
         <Button maxWidth="Infinity" onMouseClicked="#onCircleClick" text="Окружность"/>
         <Button maxWidth="Infinity" onMouseClicked="#onEllipseClick" text="Эллипс"/>
-        <Button maxWidth="Infinity" onMouseClicked="#onFillClick" text="Заливка"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onFillClick" text="Заливка построчно"/>
     </VBox>
     <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
@@ -36,7 +36,8 @@
             <Insets right="20" left="10"/>
         </GridPane.margin>
         <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseDragged="#onMainCanvasDragged"
-                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onMainCanvasClick"/>
+                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onMainCanvasClick"
+                         onMouseReleased="#onMainCanvasReleased"/>
     </ScrollPane>
 
     <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
@@ -55,7 +56,7 @@
 
     <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
-        <Button onMouseClicked="#onChooseColorClick" text="Цвет"/>
+        <ColorPicker fx:id="colorPicker"/>
     </HBox>
 
     <columnConstraints>

@@ -3,6 +3,7 @@ package ru.dchertanov.fillandclippingdemo.controller;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -15,6 +16,8 @@ import ru.dchertanov.fillandclippingdemo.util.Point;
 public class MainController {
     @FXML
     private PixelatedCanvas mainCanvas;
+    @FXML
+    private ColorPicker colorPicker;
 
     private Figure currentFigure = Figure.getInstance("line");
     private boolean isFillMode = false;
@@ -24,7 +27,7 @@ public class MainController {
         if (!isFillMode)
             return;
 
-        FloodFill.fillByRowsWithPoint(mainCanvas, PixelatedCanvas.getRGBFromColor(Color.PINK),
+        FloodFill.fillByRowsWithPoint(mainCanvas, PixelatedCanvas.getRGBFromColor(colorPicker.getValue()),
                 new Point((int) mouseEvent.getX() / 2, (int) mouseEvent.getY() / 2));
     }
 
@@ -41,7 +44,15 @@ public class MainController {
         if (currentFigure == null)
             return;
 
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), mainCanvas);
+        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), false, mainCanvas);
+    }
+
+    @FXML
+    protected void onMainCanvasReleased(MouseEvent mouseEvent) {
+        if (currentFigure == null)
+            return;
+
+        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), true, mainCanvas);
     }
 
     @FXML
@@ -89,11 +100,6 @@ public class MainController {
     @FXML
     protected void onMinusMainCanvasClick() {
         zoom(mainCanvas, false);
-    }
-
-    @FXML
-    protected void onChooseColorClick() {
-        // choose fill color
     }
 
     @FXML

@@ -1,12 +1,8 @@
 package ru.dchertanov.fillandclippingdemo.figures;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,25 +36,16 @@ public abstract class Figure {
      */
     public abstract void generatePixels();
 
-    /**
-     * Method which paints the previously drawn figure on canvas
-     *
-     * @param gc    graphics context from canvas
-     * @param width width of figure's borderline
-     * @param color color of figure
-     */
-    public abstract void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, Color color);
-
     public void setFigureStartPoint(int x, int y) {
         startPoint = new Point(x, y);
         endPoint = new Point(x, y);
     }
 
-    public void drawCustomFigureByEndPoint(int x, int y, PixelatedCanvas canvas) {
-        removePreviousFigureFromCanvasByLib(canvas.getGraphicsContext2D(), 8, Color.WHITE);
+    public void drawCustomFigureByEndPoint(int x, int y, boolean endOfDrawing, PixelatedCanvas canvas) {
+        canvas.removePreviousPixels(pixels);
         endPoint = new Point(x, y);
         generatePixels();
-        canvas.drawByPixels(pixels);
+        canvas.drawByPixels(pixels, endOfDrawing);
     }
 
     /**

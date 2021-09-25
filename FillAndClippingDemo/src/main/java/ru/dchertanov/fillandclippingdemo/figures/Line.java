@@ -1,9 +1,6 @@
 package ru.dchertanov.fillandclippingdemo.figures;
 
-import javafx.scene.canvas.GraphicsContext;
 import ru.dchertanov.fillandclippingdemo.util.Point;
-
-import java.awt.*;
 
 public class Line extends Figure {
     @Override
@@ -47,12 +44,5 @@ public class Line extends Figure {
             error += 2 * deltaY;
             step++;
         }
-    }
-
-    @Override
-    public void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, javafx.scene.paint.Color color) {
-        gc.setLineWidth(width);
-        gc.setStroke(color);
-        gc.strokeLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
     }
 }

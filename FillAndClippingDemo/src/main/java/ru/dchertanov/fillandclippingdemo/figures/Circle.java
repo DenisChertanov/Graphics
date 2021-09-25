@@ -1,9 +1,6 @@
 package ru.dchertanov.fillandclippingdemo.figures;
 
-import javafx.scene.canvas.GraphicsContext;
 import ru.dchertanov.fillandclippingdemo.util.Point;
-
-import java.awt.*;
 
 public class Circle extends Figure {
     @Override
@@ -30,13 +27,6 @@ public class Circle extends Figure {
                 delta += 2 * x - 2 * y + 2;
             }
         }
-    }
-
-    @Override
-    public void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, javafx.scene.paint.Color color) {
-        gc.setFill(color);
-        int r = (int) Point.getDistance(startPoint, endPoint) + 8;
-        gc.fillOval(startPoint.getX() - r, startPoint.getY() - r, r * 2, r * 2);
     }
 
     /**
