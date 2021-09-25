@@ -15,8 +15,6 @@ import ru.dchertanov.fillandclippingdemo.util.Point;
 public class MainController {
     @FXML
     private PixelatedCanvas mainCanvas;
-    @FXML
-    private PixelatedCanvas repeatingCanvas;
 
     private Figure currentFigure = Figure.getInstance("line");
     private boolean isFillMode = false;
@@ -47,17 +45,8 @@ public class MainController {
     }
 
     @FXML
-    protected void onMainCanvasMouseExited() {
-        if (currentFigure == null)
-            return;
-
-        currentFigure.fillRepeatingCanvas(repeatingCanvas.getGraphicsContext2D());
-    }
-
-    @FXML
     protected void onClearButtonClick() {
         mainCanvas.clear();
-        repeatingCanvas.clear();
     }
 
     @FXML
@@ -103,16 +92,6 @@ public class MainController {
     }
 
     @FXML
-    protected void onPlusRepeatingCanvasClick() {
-        zoom(repeatingCanvas, true);
-    }
-
-    @FXML
-    protected void onMinusRepeatingCanvasClick() {
-        zoom(repeatingCanvas, false);
-    }
-
-    @FXML
     protected void onChooseColorClick() {
         // choose fill color
     }
@@ -122,14 +101,14 @@ public class MainController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("О программе:");
         alert.setHeaderText(null);
-        alert.setContentText("Выполнил: Чертанов Денис БПИ185.\n" +
-                "Платформа: JavaFX.\n" +
-                "Задание: Реализовать алгоритмы Брезенхема для построения отрезка, окружности, эллипса. " +
-                "Для сравнения показать аналогичные фигуры, нарисованные встроенными библиотеками.\n" +
-                "Использование: В левой части экрана необходимо выбрать фигуру для построения. " +
-                "Рисование осуществляется на белом полотне (рисование с помощью зажатия кнопки на мышке). " +
-                "На белом полотне рисуется фигура, построенная алгоритмами Брезенхема. " +
-                "На правом зеленом полотне рисуется аналогичная фигура, построенная встроенными библиотеками.");
+//        alert.setContentText("Выполнил: Чертанов Денис БПИ185.\n" +
+//                "Платформа: JavaFX.\n" +
+//                "Задание: Реализовать алгоритмы Брезенхема для построения отрезка, окружности, эллипса. " +
+//                "Для сравнения показать аналогичные фигуры, нарисованные встроенными библиотеками.\n" +
+//                "Использование: В левой части экрана необходимо выбрать фигуру для построения. " +
+//                "Рисование осуществляется на белом полотне (рисование с помощью зажатия кнопки на мышке). " +
+//                "На белом полотне рисуется фигура, построенная алгоритмами Брезенхема. " +
+//                "На правом зеленом полотне рисуется аналогичная фигура, построенная встроенными библиотеками.");
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(600, 250);
         alert.showAndWait();

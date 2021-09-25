@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.canvas.Canvas?>
 
 <?import javafx.geometry.Insets?>
 <?import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas?>
@@ -37,46 +36,30 @@
             <Insets right="20" left="10"/>
         </GridPane.margin>
         <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseDragged="#onMainCanvasDragged"
-                         onMousePressed="#onMainCanvasPressed" onMouseReleased="#onMainCanvasMouseExited"
-                         onMouseClicked="#onMainCanvasClick"/>
-    </ScrollPane>
-    <ScrollPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
-                style="-fx-border-color: black; -fx-background: #ccffcc;">
-        <GridPane.margin>
-            <Insets left="20"/>
-        </GridPane.margin>
-        <PixelatedCanvas fx:id="repeatingCanvas" height="2000.0" width="2000.0"/>
+                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onMainCanvasClick"/>
     </ScrollPane>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
           GridPane.rowSpan="1" spacing="5">
         <GridPane.margin>
-            <Insets right="20"/>
+            <Insets left="10"/>
         </GridPane.margin>
         <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
         <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
     </HBox>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1"
-          GridPane.rowSpan="1" spacing="5">
-        <Button onMouseClicked="#onPlusRepeatingCanvasClick" text="+"/>
-        <Button onMouseClicked="#onMinusRepeatingCanvasClick" text="-"/>
-    </HBox>
-
-    <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2"
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2"
           GridPane.rowSpan="1">
         <Button onMouseClicked="#onClearButtonClick" text="Очистить"/>
     </HBox>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="2"
+    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
         <Button onMouseClicked="#onChooseColorClick" text="Цвет"/>
     </HBox>
 
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" minWidth="160" halignment="CENTER"/>
-        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
-        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
         <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
         <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
     </columnConstraints>

@@ -50,16 +50,6 @@ public class Line extends Figure {
     }
 
     @Override
-    public void drawOnBufferedImage(Color color) {
-        Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
-        Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
-
-        Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setColor(color);
-        graphics2D.drawLine(localStartPoint.getX(), localStartPoint.getY(), localEndPoint.getX(), localEndPoint.getY());
-    }
-
-    @Override
     public void removePreviousFigureFromCanvasByLib(GraphicsContext gc, int width, javafx.scene.paint.Color color) {
         gc.setLineWidth(width);
         gc.setStroke(color);

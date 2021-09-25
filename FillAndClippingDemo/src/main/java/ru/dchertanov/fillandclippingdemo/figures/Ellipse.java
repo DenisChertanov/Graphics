@@ -82,17 +82,4 @@ public class Ellipse extends Figure {
         gc.setFill(color);
         gc.fillOval(startPoint.getX() - xr / 2.0, startPoint.getY() - yr / 2.0, xr, yr);
     }
-
-    @Override
-    public void drawOnBufferedImage(java.awt.Color color) {
-        Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
-        Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
-
-        int xr = Math.abs(localStartPoint.getX() - localEndPoint.getX()) << 1;
-        int yr = Math.abs(localStartPoint.getY() - localEndPoint.getY()) << 1;
-
-        Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setColor(color);
-        graphics2D.drawOval(localStartPoint.getX() - xr / 2, localStartPoint.getY() - yr / 2, xr, yr);
-    }
 }

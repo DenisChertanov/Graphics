@@ -48,15 +48,4 @@ public class Circle extends Figure {
         pixels.add(new Point(x0 - x, y0 - y));
         pixels.add(new Point(x0 - x, y0 + y));
     }
-
-    @Override
-    public void drawOnBufferedImage(Color color) {
-        Point localStartPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);
-        Point localEndPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
-
-        Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.setColor(color);
-        int r = (int) Point.getDistance(localStartPoint, localEndPoint);
-        graphics2D.drawOval(localStartPoint.getX() - r, localStartPoint.getY() - r, r * 2, r * 2);
-    }
 }
