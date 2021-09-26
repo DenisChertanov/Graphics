@@ -21,7 +21,7 @@ public class Line extends Figure {
             isPointsSwapped = true;
         }
 
-        int error = 2 * deltaY - deltaX, step = 1;
+        int error = 2 * deltaY - deltaX, step = 0;
         while (step <= deltaX) {
             pixels.add(new Point(x, y));
 

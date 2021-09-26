@@ -79,6 +79,9 @@ public class PixelatedCanvas extends Canvas {
     }
 
     public void fillHorizontalLine(int xStart, int xEnd, int y, int rgb) {
+        if (xStart > xEnd)
+            return;
+
         Arrays.fill(pixelsColor[y * pixelSide], xStart * pixelSide, xEnd * pixelSide + pixelSide, rgb);
         Arrays.fill(usedForFill[y * pixelSide], xStart * pixelSide, xEnd * pixelSide + pixelSide, true);
 

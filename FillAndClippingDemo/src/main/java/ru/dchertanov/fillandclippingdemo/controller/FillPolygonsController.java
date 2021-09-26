@@ -1,8 +1,6 @@
 package ru.dchertanov.fillandclippingdemo.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -47,11 +45,15 @@ public class FillPolygonsController {
     protected void onMainCanvasClick(MouseEvent mouseEvent) {
         if (!isDrawing)
             return;
-        
+
         lastPoint = new Point((int) mouseEvent.getX(), (int) mouseEvent.getY());
         if (firstPoint == null) {
             firstPoint = new Point((int) mouseEvent.getX(), (int) mouseEvent.getY());
         } else {
+            if (!edges.isEmpty()) {
+                edges.get(edges.size() - 1).setNextEdgePoint(lastPoint);
+            }
+
             edges.add(new Edge(previousPoint, lastPoint));
             mainCanvas.drawLine(previousPoint, lastPoint);
         }
@@ -60,6 +62,9 @@ public class FillPolygonsController {
 
     @FXML
     protected void fillPolygon() {
+        if (isDrawing || edges.size() < 3)
+            return;
+
         FillPolygons.fillByHorizontalLines(mainCanvas, edges, PixelatedCanvas.getRGBFromColor(colorPicker.getValue()));
     }
 
@@ -79,7 +84,9 @@ public class FillPolygonsController {
             return;
 
         isDrawing = false;
+        edges.get(edges.size() - 1).setNextEdgePoint(firstPoint);
         edges.add(new Edge(lastPoint, firstPoint));
+        edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getMultEndPoint());
         mainCanvas.drawLine(lastPoint, firstPoint);
     }
 
