@@ -51,7 +51,7 @@ public class FillPolygonsController {
             firstPoint = new Point((int) mouseEvent.getX(), (int) mouseEvent.getY());
         } else {
             if (!edges.isEmpty()) {
-                edges.get(edges.size() - 1).setNextEdgePoint(lastPoint);
+                edges.get(edges.size() - 1).setNextEdgePoint(lastPoint, true);
             }
 
             edges.add(new Edge(previousPoint, lastPoint));
@@ -66,6 +66,14 @@ public class FillPolygonsController {
             return;
 
         FillPolygons.fillByHorizontalLines(mainCanvas, edges, PixelatedCanvas.getRGBFromColor(colorPicker.getValue()));
+        drawPolygonBorder();
+    }
+
+    private void drawPolygonBorder() {
+        for (Edge edge : edges) {
+            Edge scaledEdge = Edge.getScaledEdge(edge);
+            mainCanvas.drawLine(scaledEdge.getStartPoint(), scaledEdge.getEndPoint());
+        }
     }
 
     @FXML
@@ -84,9 +92,9 @@ public class FillPolygonsController {
             return;
 
         isDrawing = false;
-        edges.get(edges.size() - 1).setNextEdgePoint(firstPoint);
+        edges.get(edges.size() - 1).setNextEdgePoint(firstPoint, true);
         edges.add(new Edge(lastPoint, firstPoint));
-        edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getMultEndPoint());
+        edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getNextEdgePoint(), false);
         mainCanvas.drawLine(lastPoint, firstPoint);
     }
 
