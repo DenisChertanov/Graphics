@@ -23,7 +23,7 @@
 
     <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
-        <Button text="Отсечение" maxHeight="50"/>
+        <Button text="Отсечение" maxHeight="50" onMouseClicked="#onClippingClick"/>
     </HBox>
 
     <columnConstraints>

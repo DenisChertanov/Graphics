@@ -25,6 +25,9 @@ public abstract class Figure {
             case ("ellipse"):
                 result = new Ellipse();
                 break;
+            case ("rectangle"):
+                result = new Rectangle();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + figureName);
         }
@@ -45,11 +48,15 @@ public abstract class Figure {
         endPoint = new Point(x, y);
     }
 
-    public void drawCustomFigureByEndPoint(int x, int y, boolean endOfDrawing, PixelatedCanvas canvas) {
+    public void drawCustomFigureByEndPoint(int x, int y, boolean endOfDrawing, int borderRGB, PixelatedCanvas canvas) {
         canvas.removePreviousPixels(pixels);
         endPoint = new Point(x, y);
         generatePixels();
-        canvas.drawByPixels(pixels, endOfDrawing);
+        canvas.drawByPixels(pixels, endOfDrawing, borderRGB);
+    }
+
+    public void drawFigure(int borderRGB, PixelatedCanvas canvas) {
+        canvas.drawByPixels(pixels, true, borderRGB);
     }
 
     /**
@@ -64,7 +71,29 @@ public abstract class Figure {
         pixels.clear();
     }
 
+    public void swapPoints() {
+        Point tmp = localStartPoint;
+        localStartPoint = new Point(localEndPoint);
+        localEndPoint = new Point(tmp);
+    }
+
     public List<Point> getPixels() {
         return pixels;
+    }
+
+    public Point getStartPoint() {
+        return localStartPoint;
+    }
+
+    public Point getEndPoint() {
+        return localEndPoint;
+    }
+
+    public void setStartPoint(Point localStartPoint) {
+        this.localStartPoint = localStartPoint;
+    }
+
+    public void setEndPoint(Point localEndPoint) {
+        this.localEndPoint = localEndPoint;
     }
 }

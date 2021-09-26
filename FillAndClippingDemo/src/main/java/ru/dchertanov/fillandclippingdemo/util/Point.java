@@ -1,5 +1,7 @@
 package ru.dchertanov.fillandclippingdemo.util;
 
+import ru.dchertanov.fillandclippingdemo.figures.Rectangle;
+
 public class Point {
     private int x;
     private int y;
@@ -19,6 +21,10 @@ public class Point {
         y = Integer.max(y, 0);
     }
 
+    public Point getScaledPoint() {
+        return new Point(x * 2, y * 2);
+    }
+
     @Override
     public boolean equals(Object point) {
         if (point instanceof Point) {
@@ -30,6 +36,19 @@ public class Point {
 
     public static double getDistance(Point a, Point b) {
         return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    }
+
+    public int getOutCode(Rectangle rectangle) {
+        int result = 0;
+        if (x < Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()))
+            result |= 1;
+        if (x > Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()))
+            result |= 2;
+        if (y > Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()))
+            result |= 4;
+        if (y < Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()))
+            result |= 8;
+        return result;
     }
 
     public int getX() {

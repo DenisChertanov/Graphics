@@ -10,7 +10,7 @@
 <?import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas?>
 <GridPane style="-fx-background-color: #ccffcc;"
           xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="ru.dchertanov.fillandclippingdemo.controller.FillPolygonsController">
+          fx:controller="ru.dchertanov.fillandclippingdemo.controller.ClippingController">
 
     <padding>
         <Insets left="5" right="50" top="5" bottom="5"/>
@@ -26,9 +26,10 @@
             <Insets right="10" left="5">
             </Insets>
         </padding>
-        <Button maxWidth="Infinity" text="Начать строить полигон" onMouseClicked="#startDrawing"/>
-        <Button maxWidth="Infinity" text="Закончить строить полигон" onMouseClicked="#endDrawing"/>
-        <Button maxWidth="Infinity" text="Заливка полигона" onMouseClicked="#fillPolygon"/>
+        <Button maxWidth="Infinity" text="Отрезок" onMouseClicked="#onLineClick"/>
+        <Button maxWidth="Infinity" text="Прямоугольник" onMouseClicked="#onRectangleClick"/>
+        <Button maxWidth="Infinity" text="Подсветить видимость" onMouseClicked="#onShowLineTypeClick"/>
+        <Button maxWidth="Infinity" text="Отсечь" onMouseClicked="#onClippingClick"/>
     </VBox>
 
     <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
@@ -41,7 +42,10 @@
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
-        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseClicked="#onMainCanvasClick"/>
+        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0"
+                         onMouseDragged="#onMainCanvasDragged"
+                         onMousePressed="#onMainCanvasPressed"
+                         onMouseReleased="#onMainCanvasReleased"/>
     </ScrollPane>
 
     <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
@@ -53,19 +57,13 @@
         <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
     </HBox>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2"
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
         <Button onMouseClicked="#onClearButtonClick" text="Очистить"/>
     </HBox>
 
-    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
-          GridPane.rowSpan="1">
-        <ColorPicker fx:id="colorPicker"/>
-    </HBox>
-
     <columnConstraints>
         <ColumnConstraints hgrow="NEVER" minWidth="160" halignment="CENTER"/>
-        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
         <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
     </columnConstraints>
 

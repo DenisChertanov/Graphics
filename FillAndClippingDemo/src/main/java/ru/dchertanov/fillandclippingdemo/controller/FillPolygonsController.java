@@ -8,6 +8,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import ru.dchertanov.fillandclippingdemo.algo.FillPolygons;
@@ -55,7 +56,7 @@ public class FillPolygonsController {
             }
 
             edges.add(new Edge(previousPoint, lastPoint));
-            mainCanvas.drawLine(previousPoint, lastPoint);
+            mainCanvas.drawLine(previousPoint, lastPoint, PixelatedCanvas.getRGBFromColor(Color.BLACK));
         }
         previousPoint = lastPoint;
     }
@@ -72,7 +73,7 @@ public class FillPolygonsController {
     private void drawPolygonBorder() {
         for (Edge edge : edges) {
             Edge scaledEdge = Edge.getScaledEdge(edge);
-            mainCanvas.drawLine(scaledEdge.getStartPoint(), scaledEdge.getEndPoint());
+            mainCanvas.drawLine(scaledEdge.getStartPoint(), scaledEdge.getEndPoint(), PixelatedCanvas.getRGBFromColor(Color.BLACK));
         }
     }
 
@@ -95,7 +96,7 @@ public class FillPolygonsController {
         edges.get(edges.size() - 1).setNextEdgePoint(firstPoint, true);
         edges.add(new Edge(lastPoint, firstPoint));
         edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getNextEdgePoint(), false);
-        mainCanvas.drawLine(lastPoint, firstPoint);
+        mainCanvas.drawLine(lastPoint, firstPoint, PixelatedCanvas.getRGBFromColor(Color.BLACK));
     }
 
     @FXML

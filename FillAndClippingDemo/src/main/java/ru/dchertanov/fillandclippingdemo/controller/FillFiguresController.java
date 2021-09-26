@@ -10,6 +10,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import ru.dchertanov.fillandclippingdemo.MainApplication;
@@ -63,7 +64,8 @@ public class FillFiguresController {
         if (currentFigure == null)
             return;
 
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), false, mainCanvas);
+        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+                false, PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
     }
 
     @FXML
@@ -71,7 +73,8 @@ public class FillFiguresController {
         if (currentFigure == null)
             return;
 
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(), true, mainCanvas);
+        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+                true, PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
     }
 
     @FXML

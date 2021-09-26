@@ -34,7 +34,7 @@ public class MainViewController {
 
     @FXML
     protected void onClippingClick() throws IOException {
-//        loadScene("fill-figure-view.fxml");
+        loadScene("clipping-view.fxml");
     }
 
     public static void backToMainClick(Stage stage) throws IOException {

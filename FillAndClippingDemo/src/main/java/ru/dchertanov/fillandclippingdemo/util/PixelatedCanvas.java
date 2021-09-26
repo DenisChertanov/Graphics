@@ -46,13 +46,12 @@ public class PixelatedCanvas extends Canvas {
      *
      * @param pixels list of pixels
      */
-    public void drawByPixels(List<Point> pixels, boolean endOfDrawing) {
+    public void drawByPixels(List<Point> pixels, boolean endOfDrawing, int rgb) {
         if (pixels.isEmpty())
             return;
 
         GraphicsContext gc = getGraphicsContext2D();
-        gc.setFill(Color.BLACK);
-        int rgb = getRGBFromColor(Color.BLACK);
+        gc.setFill(getColorFromRGB(rgb));
         for (Point point : pixels) {
             if (!isPixelInsideCanvas(point.getX() * pixelSide, point.getY() * pixelSide))
                 continue;
@@ -90,12 +89,12 @@ public class PixelatedCanvas extends Canvas {
         gc.fillRect(xStart * pixelSide, y * pixelSide, (xEnd - xStart + 1) * pixelSide, pixelSide);
     }
 
-    public void drawLine(Point startPoint, Point endPoint) {
+    public void drawLine(Point startPoint, Point endPoint, int rgb) {
         Figure line = Figure.getInstance("line");
         line.setFigureStartPoint(startPoint.getX(), startPoint.getY());
         line.setFigureEndPoint(endPoint.getX(), endPoint.getY());
         line.generatePixels();
-        drawByPixels(line.getPixels(), true);
+        drawByPixels(line.getPixels(), true, rgb);
     }
 
     public boolean isPixelInsideCanvas(int x, int y) {
