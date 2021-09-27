@@ -11,6 +11,22 @@ public class Rectangle extends Figure {
         generateLine(endPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY(), line);
     }
 
+    public int getMinX() {
+        return Integer.min(localStartPoint.getX(), localEndPoint.getX());
+    }
+
+    public int getMaxX() {
+        return Integer.max(localStartPoint.getX(), localEndPoint.getX());
+    }
+
+    public int getMinY() {
+        return Integer.min(localStartPoint.getY(), localEndPoint.getY());
+    }
+
+    public int getMaxY() {
+        return Integer.max(localStartPoint.getY(), localEndPoint.getY());
+    }
+
     private void generateLine(int x1, int y1, int x2, int y2, Figure line) {
         line.setFigureStartPoint(x1, y1);
         line.setFigureEndPoint(x2, y2);

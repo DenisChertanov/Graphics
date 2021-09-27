@@ -40,13 +40,13 @@ public class Point {
 
     public int getOutCode(Rectangle rectangle) {
         int result = 0;
-        if (x < Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()))
+        if (x < rectangle.getMinX())
             result |= 1;
-        if (x > Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()))
+        if (x > rectangle.getMaxX())
             result |= 2;
-        if (y > Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()))
+        if (y < rectangle.getMinY())
             result |= 4;
-        if (y < Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()))
+        if (y > rectangle.getMaxY())
             result |= 8;
         return result;
     }

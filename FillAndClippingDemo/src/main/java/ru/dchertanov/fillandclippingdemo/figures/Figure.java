@@ -71,12 +71,6 @@ public abstract class Figure {
         pixels.clear();
     }
 
-    public void swapPoints() {
-        Point tmp = localStartPoint;
-        localStartPoint = new Point(localEndPoint);
-        localEndPoint = new Point(tmp);
-    }
-
     public List<Point> getPixels() {
         return pixels;
     }
@@ -87,13 +81,5 @@ public abstract class Figure {
 
     public Point getEndPoint() {
         return localEndPoint;
-    }
-
-    public void setStartPoint(Point localStartPoint) {
-        this.localStartPoint = localStartPoint;
-    }
-
-    public void setEndPoint(Point localEndPoint) {
-        this.localEndPoint = localEndPoint;
     }
 }

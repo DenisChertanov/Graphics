@@ -2,10 +2,8 @@ package ru.dchertanov.fillandclippingdemo.algo;
 
 import ru.dchertanov.fillandclippingdemo.util.Edge;
 import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas;
-import ru.dchertanov.fillandclippingdemo.util.Point;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class FillPolygons {

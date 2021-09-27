@@ -1,8 +1,6 @@
 package ru.dchertanov.fillandclippingdemo.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,14 +11,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
-import ru.dchertanov.fillandclippingdemo.MainApplication;
 import ru.dchertanov.fillandclippingdemo.algo.FillFigures;
 import ru.dchertanov.fillandclippingdemo.figures.Figure;
 import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class FillFiguresController {

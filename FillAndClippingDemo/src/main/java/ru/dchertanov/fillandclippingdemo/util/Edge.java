@@ -1,9 +1,5 @@
 package ru.dchertanov.fillandclippingdemo.util;
 
-import ru.dchertanov.fillandclippingdemo.figures.Figure;
-
-import java.util.*;
-
 public class Edge {
     private final Point startPoint;
     private final Point endPoint;

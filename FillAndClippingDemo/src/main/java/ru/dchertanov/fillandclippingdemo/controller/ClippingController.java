@@ -10,11 +10,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import ru.dchertanov.fillandclippingdemo.algo.ClippingLines;
 import ru.dchertanov.fillandclippingdemo.figures.Figure;
 import ru.dchertanov.fillandclippingdemo.figures.Line;
 import ru.dchertanov.fillandclippingdemo.figures.Rectangle;
 import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas;
-import ru.dchertanov.fillandclippingdemo.util.Point;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class ClippingController {
     private Button backButton;
 
     private Figure currentFigure = Figure.getInstance("line");
-    private List<Figure> lines = new ArrayList<>();
-    private Figure rectangle;
+    private List<Line> lines = new ArrayList<>();
+    private Rectangle rectangle;
 
     public void initialize() {
         Image image = new Image("back_arrow.png");
@@ -50,123 +50,12 @@ public class ClippingController {
 
     @FXML
     protected void onShowLineTypeClick() {
-        for (Figure line : lines) {
-            int startOutCode = line.getStartPoint().getOutCode((Rectangle) rectangle);
-            int endOutCode = line.getEndPoint().getOutCode((Rectangle) rectangle);
-
-            int rgb = 0;
-            if (startOutCode == 0 && endOutCode == 0) {
-                rgb = PixelatedCanvas.getRGBFromColor(Color.GREEN);
-            } else if ((startOutCode & endOutCode) != 0) {
-                rgb = PixelatedCanvas.getRGBFromColor(Color.PURPLE);
-            } else {
-                rgb = PixelatedCanvas.getRGBFromColor(Color.BLUE);
-            }
-            line.drawFigure(rgb, mainCanvas);
-        }
+        ClippingLines.showLineTypes(lines, rectangle, mainCanvas);
     }
 
     @FXML
     protected void onClippingClick() {
-        for (Figure line : lines) {
-            int startOutCode = line.getStartPoint().getOutCode((Rectangle) rectangle);
-            int endOutCode = line.getEndPoint().getOutCode((Rectangle) rectangle);
-
-            int rgb = 0;
-            if (startOutCode == 0 && endOutCode == 0) {
-                rgb = PixelatedCanvas.getRGBFromColor(Color.GREEN);
-                line.drawFigure(rgb, mainCanvas);
-            } else if ((startOutCode & endOutCode) != 0) {
-                rgb = PixelatedCanvas.getRGBFromColor(Color.WHITE);
-                line.drawFigure(rgb, mainCanvas);
-            } else {
-                if (startOutCode == 0 || line.getStartPoint().getX() > line.getEndPoint().getX()) {
-                    line.swapPoints();
-                    int tmp = startOutCode;
-                    startOutCode = endOutCode;
-                    endOutCode = tmp;
-                }
-
-                Point startIntersectionPoint = getIntersectionPoint(line.getStartPoint(), line.getEndPoint());
-                if (startIntersectionPoint == null) {
-                    line.drawFigure(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
-                } else {
-                    mainCanvas.drawLine(line.getStartPoint().getScaledPoint(),
-                            startIntersectionPoint.getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.WHITE));
-                    if (endOutCode == 0) {
-                        mainCanvas.drawLine(startIntersectionPoint.getScaledPoint(),
-                                line.getEndPoint().getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.GREEN));
-                    } else {
-                        Point endIntersectionPoint = getIntersectionPoint(startIntersectionPoint, line.getEndPoint());
-                        mainCanvas.drawLine(endIntersectionPoint.getScaledPoint(),
-                                line.getEndPoint().getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.WHITE));
-                        mainCanvas.drawLine(startIntersectionPoint.getScaledPoint(),
-                                endIntersectionPoint.getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.GREEN));
-                    }
-                }
-            }
-        }
-
-        rectangle.drawFigure(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
-    }
-
-    private Point getIntersectionPoint(Point startPoint, Point endPoint) {
-        // с левой стороной
-        if (startPoint.getX() != endPoint.getX()) {
-            double m = (endPoint.getY() - startPoint.getY())
-                    / (double) (endPoint.getX() - startPoint.getX());
-            int y = (int) Math.round(m *
-                    (Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) - startPoint.getX()) +
-                    startPoint.getY());
-            if (y >= Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) &&
-                    y <= Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) &&
-                    !startPoint.equals(new Point(Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()), y))) {
-                return new Point(Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()), y);
-            }
-        }
-
-        // с верхней стороной
-        if (startPoint.getY() != endPoint.getY()) {
-            double m = (endPoint.getY() - startPoint.getY())
-                    / (double) (endPoint.getX() - startPoint.getX());
-            int x = (int) Math.round(m *
-                    (1.0 / m) *
-                    (Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) - startPoint.getY()));
-            if (x >= Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) &&
-                    x <= Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) &&
-                    !startPoint.equals(new Point(x, Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY())))) {
-                return new Point(x, Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()));
-            }
-        }
-
-        // с правой стороной
-        if (startPoint.getX() != endPoint.getX()) {
-            double m = (endPoint.getY() - startPoint.getY())
-                    / (double) (endPoint.getX() - startPoint.getX());
-            int y = (int) Math.round(m *
-                    (Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) - startPoint.getX()) +
-                    startPoint.getY());
-            if (y >= Math.min(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) &&
-                    y <= Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) &&
-                    !startPoint.equals(new Point(Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()), y))) {
-                return new Point(Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()), y);
-            }
-        }
-
-        // с нижней стороны
-        if (startPoint.getY() != endPoint.getY()) {
-            double m = (endPoint.getY() - startPoint.getY())
-                    / (double) (endPoint.getX() - startPoint.getX());
-            int x = (int) Math.round(m *
-                    (1.0 / m) *
-                    (Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()) - startPoint.getY()));
-            if (x >= Math.min(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) &&
-                    x <= Math.max(rectangle.getStartPoint().getX(), rectangle.getEndPoint().getX()) &&
-                    !startPoint.equals(new Point(x, Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY())))) {
-                return new Point(x, Math.max(rectangle.getStartPoint().getY(), rectangle.getEndPoint().getY()));
-            }
-        }
-        return null;
+        ClippingLines.clipping(lines, rectangle, mainCanvas);
     }
 
     @FXML
@@ -199,10 +88,10 @@ public class ClippingController {
         currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
                 true, rgb, mainCanvas);
         if (currentFigure instanceof Rectangle) {
-            rectangle = currentFigure;
+            rectangle = (Rectangle) currentFigure;
             currentFigure = Figure.getInstance("rectangle");
         } else {
-            lines.add(currentFigure);
+            lines.add((Line) currentFigure);
             currentFigure = Figure.getInstance("line");
         }
     }

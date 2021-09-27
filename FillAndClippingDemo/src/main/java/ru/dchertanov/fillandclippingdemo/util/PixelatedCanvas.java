@@ -4,7 +4,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ru.dchertanov.fillandclippingdemo.figures.Figure;
-import ru.dchertanov.fillandclippingdemo.figures.Line;
 
 import java.util.Arrays;
 import java.util.List;
