@@ -1,15 +1,11 @@
 package ru.dchertanov.fillandclippingdemo.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import ru.dchertanov.fillandclippingdemo.algo.FillPolygons;
 import ru.dchertanov.fillandclippingdemo.util.Edge;
@@ -35,15 +31,11 @@ public class FillPolygonsController {
     private boolean isDrawing = false;
 
     public void initialize() {
-        Image image = new Image("back_arrow.png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
-        backButton.setGraphic(imageView);
+        MainViewController.configureBackToMainButton(backButton);
     }
 
     @FXML
-    protected void onMainCanvasClick(MouseEvent mouseEvent) {
+    protected void onNewPolygonPointClick(MouseEvent mouseEvent) {
         if (!isDrawing)
             return;
 
@@ -83,7 +75,7 @@ public class FillPolygonsController {
         lastPoint = null;
         previousPoint = null;
         edges = new ArrayList<>();
-        mainCanvas.clear();
+        mainCanvas.clearCanvas();
         isDrawing = true;
     }
 
@@ -101,25 +93,17 @@ public class FillPolygonsController {
 
     @FXML
     protected void onClearButtonClick() {
-        mainCanvas.clear();
-    }
-
-    private void zoom(Canvas canvas, boolean increase) {
-        if (increase) {
-            canvas.getTransforms().add(new Scale(1.5, 1.5));
-        } else {
-            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
-        }
+        mainCanvas.clearCanvas();
     }
 
     @FXML
     protected void onPlusMainCanvasClick() {
-        zoom(mainCanvas, true);
+        MainViewController.zoom(mainCanvas, true);
     }
 
     @FXML
     protected void onMinusMainCanvasClick() {
-        zoom(mainCanvas, false);
+        MainViewController.zoom(mainCanvas, false);
     }
 
     @FXML

@@ -3,6 +3,8 @@ package ru.dchertanov.fillandclippingdemo.figures;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
 public class Ellipse extends Figure {
+    protected Ellipse() {}
+
     @Override
     public void generatePixels() {
         prepareEnvironment();

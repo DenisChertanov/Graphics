@@ -6,6 +6,10 @@ public class Point {
     private int x;
     private int y;
 
+    public static double getDistance(Point a, Point b) {
+        return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+    }
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -34,19 +38,15 @@ public class Point {
         return false;
     }
 
-    public static double getDistance(Point a, Point b) {
-        return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
-    }
-
-    public int getOutCode(Rectangle rectangle) {
+    public int getCohenSutherlandCode(Rectangle rectangle) {
         int result = 0;
-        if (x < rectangle.getMinX())
+        if (x < rectangle.getMinX()) // left
             result |= 1;
-        if (x > rectangle.getMaxX())
+        if (x > rectangle.getMaxX()) // right
             result |= 2;
-        if (y < rectangle.getMinY())
+        if (y < rectangle.getMinY()) // top
             result |= 4;
-        if (y > rectangle.getMaxY())
+        if (y > rectangle.getMaxY()) // bottom
             result |= 8;
         return result;
     }

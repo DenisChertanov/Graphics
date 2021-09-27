@@ -5,8 +5,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
@@ -30,15 +28,11 @@ public class FillFiguresController {
     private boolean isFillMode = false;
 
     public void initialize() {
-        Image image = new Image("back_arrow.png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
-        backButton.setGraphic(imageView);
+        MainViewController.configureBackToMainButton(backButton);
     }
 
     @FXML
-    protected void onMainCanvasClick(MouseEvent mouseEvent) {
+    protected void onFillRegionClick(MouseEvent mouseEvent) {
         if (!isFillMode)
             return;
 
@@ -59,7 +53,7 @@ public class FillFiguresController {
         if (currentFigure == null)
             return;
 
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+        currentFigure.drawFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
                 false, PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
     }
 
@@ -68,13 +62,13 @@ public class FillFiguresController {
         if (currentFigure == null)
             return;
 
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+        currentFigure.drawFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
                 true, PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
     }
 
     @FXML
     protected void onClearButtonClick() {
-        mainCanvas.clear();
+        mainCanvas.clearCanvas();
     }
 
     @FXML
@@ -101,6 +95,12 @@ public class FillFiguresController {
         currentFigure = null;
     }
 
+    @FXML
+    protected void onPlusMainCanvasClick() {
+        MainViewController.zoom(mainCanvas, true);
+    }
+
+    @FXML
     private void zoom(Canvas canvas, boolean increase) {
         if (increase) {
             canvas.getTransforms().add(new Scale(1.5, 1.5));
@@ -109,14 +109,8 @@ public class FillFiguresController {
         }
     }
 
-    @FXML
-    protected void onPlusMainCanvasClick() {
-        zoom(mainCanvas, true);
-    }
-
-    @FXML
     protected void onMinusMainCanvasClick() {
-        zoom(mainCanvas, false);
+        MainViewController.zoom(mainCanvas, false);
     }
 
     @FXML

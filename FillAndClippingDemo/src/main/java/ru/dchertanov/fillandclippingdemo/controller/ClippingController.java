@@ -1,14 +1,10 @@
 package ru.dchertanov.fillandclippingdemo.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import ru.dchertanov.fillandclippingdemo.algo.ClippingLines;
 import ru.dchertanov.fillandclippingdemo.figures.Figure;
@@ -31,11 +27,7 @@ public class ClippingController {
     private Rectangle rectangle;
 
     public void initialize() {
-        Image image = new Image("back_arrow.png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
-        backButton.setGraphic(imageView);
+        MainViewController.configureBackToMainButton(backButton);
     }
 
     @FXML
@@ -63,7 +55,6 @@ public class ClippingController {
         if (currentFigure instanceof Rectangle && rectangle != null) {
             return;
         }
-
         currentFigure.setFigureStartPoint((int) mouseEvent.getX(), (int) mouseEvent.getY());
     }
 
@@ -72,9 +63,8 @@ public class ClippingController {
         if (currentFigure instanceof Rectangle && rectangle != null) {
             return;
         }
-
         int rgb = currentFigure instanceof Line ? PixelatedCanvas.getRGBFromColor(Color.BLACK) : PixelatedCanvas.getRGBFromColor(Color.RED);
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+        currentFigure.drawFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
                 false, rgb, mainCanvas);
     }
 
@@ -85,7 +75,7 @@ public class ClippingController {
         }
 
         int rgb = currentFigure instanceof Line ? PixelatedCanvas.getRGBFromColor(Color.BLACK) : PixelatedCanvas.getRGBFromColor(Color.RED);
-        currentFigure.drawCustomFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
+        currentFigure.drawFigureByEndPoint((int) mouseEvent.getX(), (int) mouseEvent.getY(),
                 true, rgb, mainCanvas);
         if (currentFigure instanceof Rectangle) {
             rectangle = (Rectangle) currentFigure;
@@ -98,27 +88,19 @@ public class ClippingController {
 
     @FXML
     protected void onClearButtonClick() {
-        mainCanvas.clear();
+        mainCanvas.clearCanvas();
         lines = new ArrayList<>();
         rectangle = null;
     }
 
-    private void zoom(Canvas canvas, boolean increase) {
-        if (increase) {
-            canvas.getTransforms().add(new Scale(1.5, 1.5));
-        } else {
-            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
-        }
-    }
-
     @FXML
     protected void onPlusMainCanvasClick() {
-        zoom(mainCanvas, true);
+        MainViewController.zoom(mainCanvas, true);
     }
 
     @FXML
     protected void onMinusMainCanvasClick() {
-        zoom(mainCanvas, false);
+        MainViewController.zoom(mainCanvas, false);
     }
 
     @FXML

@@ -62,7 +62,7 @@ public class PixelatedCanvas extends Canvas {
         }
     }
 
-    public void removePreviousPixels(List<Point> pixels) {
+    public void removePreviousNotEndPixels(List<Point> pixels) {
         if (pixels.isEmpty())
             return;
 
@@ -93,6 +93,7 @@ public class PixelatedCanvas extends Canvas {
         line.setFigureStartPoint(startPoint.getX(), startPoint.getY());
         line.setFigureEndPoint(endPoint.getX(), endPoint.getY());
         line.generatePixels();
+
         drawByPixels(line.getPixels(), true, rgb);
     }
 
@@ -102,7 +103,7 @@ public class PixelatedCanvas extends Canvas {
         return (x >= 0 && x <= canvasSide - pixelSide) && (y >= 0 && y <= canvasSide - pixelSide);
     }
 
-    public void clear() {
+    public void clearCanvas() {
         clearPixelsColor();
         getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
     }

@@ -3,6 +3,8 @@ package ru.dchertanov.fillandclippingdemo.figures;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
 public class Line extends Figure {
+    protected Line() {}
+
     @Override
     public void generatePixels() {
         prepareEnvironment();

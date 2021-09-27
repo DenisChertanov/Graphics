@@ -10,7 +10,7 @@ public class Edge {
         this.endPoint = new Point(endPoint.getX() / 2, endPoint.getY() / 2);
     }
 
-    public int getIntersectionWithLine(int y) {
+    public int getIntersectionWithHorizontalLine(int y) {
         return (int) Math.round(startPoint.getX() + (y - startPoint.getY()) *
                 (endPoint.getX() - startPoint.getX()) /
                 (double) (endPoint.getY() - startPoint.getY()));

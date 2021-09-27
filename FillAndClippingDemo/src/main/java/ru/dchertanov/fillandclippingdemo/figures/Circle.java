@@ -3,6 +3,9 @@ package ru.dchertanov.fillandclippingdemo.figures;
 import ru.dchertanov.fillandclippingdemo.util.Point;
 
 public class Circle extends Figure {
+    protected Circle() {
+    }
+
     @Override
     public void generatePixels() {
         prepareEnvironment();

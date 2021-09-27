@@ -10,8 +10,7 @@ public class FillFigures {
     private static int previousColor;
     private static PixelatedCanvas canvas;
 
-    private FillFigures() {
-    }
+    private FillFigures() {}
 
     public static void fillByRowsWithPoint(PixelatedCanvas canvas, int fillColor, Point point) {
         canvas.clearFillUsed();

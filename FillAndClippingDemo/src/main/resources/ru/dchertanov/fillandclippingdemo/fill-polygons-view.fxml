@@ -41,7 +41,7 @@
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
-        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseClicked="#onMainCanvasClick"/>
+        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseClicked="#onNewPolygonPointClick"/>
     </ScrollPane>
 
     <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"

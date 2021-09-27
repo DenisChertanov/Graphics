@@ -41,7 +41,7 @@
             <Insets right="20" left="10"/>
         </GridPane.margin>
         <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseDragged="#onMainCanvasDragged"
-                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onMainCanvasClick"
+                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onFillRegionClick"
                          onMouseReleased="#onMainCanvasReleased"/>
     </ScrollPane>
 
