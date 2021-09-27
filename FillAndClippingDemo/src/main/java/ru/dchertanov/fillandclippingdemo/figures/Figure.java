@@ -51,15 +51,6 @@ public abstract class Figure {
         pixels.clear();
     }
 
-    public void setFigureStartPoint(int x, int y) {
-        startPoint = new Point(x, y);
-        endPoint = new Point(x, y);
-    }
-
-    public void setFigureEndPoint(int x, int y) {
-        endPoint = new Point(x, y);
-    }
-
     public void drawFigureByEndPoint(int x, int y, boolean endOfDrawing, int borderRGB, PixelatedCanvas canvas) {
         canvas.removePreviousNotEndPixels(pixels);
         endPoint = new Point(x, y);
@@ -69,6 +60,15 @@ public abstract class Figure {
 
     public void drawFigure(int borderRGB, PixelatedCanvas canvas) {
         canvas.drawByPixels(pixels, true, borderRGB);
+    }
+
+    public void setFigureStartPoint(int x, int y) {
+        startPoint = new Point(x, y);
+        endPoint = new Point(x, y);
+    }
+
+    public void setFigureEndPoint(int x, int y) {
+        endPoint = new Point(x, y);
     }
 
     public List<Point> getPixels() {

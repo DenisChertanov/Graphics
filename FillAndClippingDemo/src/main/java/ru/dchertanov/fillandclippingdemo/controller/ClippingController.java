@@ -68,6 +68,9 @@ public class ClippingController {
                 false, rgb, mainCanvas);
     }
 
+    /**
+     * Method draws final version of figure
+     */
     @FXML
     protected void onMainCanvasReleased(MouseEvent mouseEvent) {
         if (currentFigure instanceof Rectangle && rectangle != null) {

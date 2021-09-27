@@ -3,7 +3,7 @@ package ru.dchertanov.fillandclippingdemo.util;
 public class Edge {
     private final Point startPoint;
     private final Point endPoint;
-    private Point nextEdgePoint;
+    private Point nextEdgePoint; // point of neighbor edge in polygon
 
     public Edge(Point startPoint, Point endPoint) {
         this.startPoint = new Point(startPoint.getX() / 2, startPoint.getY() / 2);

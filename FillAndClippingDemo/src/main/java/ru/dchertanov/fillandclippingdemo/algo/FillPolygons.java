@@ -12,6 +12,9 @@ public class FillPolygons {
 
     private FillPolygons() {}
 
+    /**
+     * Algo for filling polygons (with calculating intersections point on every line)
+     */
     public static void fillByHorizontalLines(PixelatedCanvas canvas, List<Edge> edges, int fillColor) {
         findMinAndMaxY(edges);
         for (int y = yMin; y <= yMax; ++y) {
@@ -22,6 +25,9 @@ public class FillPolygons {
         }
     }
 
+    /**
+     * Method calculates and sorts intersections of horizontal line with every polygon's edge
+     */
     private static List<Integer> getPolygonIntersectionsWithLine(List<Edge> edges, int y) {
         List<Integer> intersections = new ArrayList<>();
         for (Edge edge : edges) {

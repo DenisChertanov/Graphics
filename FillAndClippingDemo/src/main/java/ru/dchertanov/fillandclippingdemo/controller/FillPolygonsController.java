@@ -34,6 +34,9 @@ public class FillPolygonsController {
         MainViewController.configureBackToMainButton(backButton);
     }
 
+    /**
+     * Method adds new point in polygon, adds new edge
+     */
     @FXML
     protected void onNewPolygonPointClick(MouseEvent mouseEvent) {
         if (!isDrawing)

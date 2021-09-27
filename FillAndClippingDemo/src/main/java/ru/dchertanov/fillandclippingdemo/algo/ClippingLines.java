@@ -13,6 +13,12 @@ public class ClippingLines {
     private ClippingLines() {
     }
 
+    /**
+     * Method fill given lines with different colors (depending on type) <p>
+     * - GREEN - line 100% inside rectangle <p>
+     * - PURPLE - line 100% outside rectangle <p>
+     * - BLUE - need to check more details
+     */
     public static void showLineTypes(List<Line> lines, Rectangle rectangle, PixelatedCanvas canvas) {
         for (Figure line : lines) {
             int startPointCode = line.getStartPoint().getCohenSutherlandCode(rectangle);
@@ -30,11 +36,14 @@ public class ClippingLines {
         }
     }
 
+    /**
+     * Algo which clipping all segments of given lines, which not inside rectangle (use Cohen-Sutherland algo)
+     */
     public static void clipping(List<Line> lines, Rectangle rectangle, PixelatedCanvas canvas) {
-        int LEFT = 1, RIGHT = 2, TOP = 4, BOTTOM = 8;
+        int LEFT = 1, RIGHT = 2, TOP = 4, BOTTOM = 8; // codes for different sides of rectangle
 
         for (Line line : lines) {
-            line.drawFigure(PixelatedCanvas.getRGBFromColor(Color.WHITE), canvas); // стереть предыдущую
+            line.drawFigure(PixelatedCanvas.getRGBFromColor(Color.WHITE), canvas); // remove line from canvas
 
             Point a = new Point(line.getStartPoint());
             Point b = new Point(line.getEndPoint());
@@ -42,11 +51,11 @@ public class ClippingLines {
             int bCode = b.getCohenSutherlandCode(rectangle);
 
             while (aCode != 0 || bCode != 0) {
-                if ((aCode & bCode) != 0) { // отрезок целиком вне прямоугольника
+                if ((aCode & bCode) != 0) { // check if line outside rectangle
                     break;
                 }
 
-                // Взять точку с ненулевым кодом
+                // get point with not zero code
                 Point currentPoint = a;
                 int currentPointCode = aCode;
                 if (aCode == 0) {
@@ -54,6 +63,7 @@ public class ClippingLines {
                     currentPointCode = bCode;
                 }
 
+                // find intersection with rectangle side (then replace currentPoint to it)
                 double m = (a.getY() - b.getY()) / (double) (a.getX() - b.getX());
                 if ((currentPointCode & LEFT) != 0) {
                     currentPoint.setY((int) Math.round((currentPoint.getY() + m * (rectangle.getMinX() - currentPoint.getX()))));
@@ -74,10 +84,10 @@ public class ClippingLines {
             }
 
             if ((aCode & bCode) == 0) {
-                canvas.drawLine(a.getScaledPoint(), b.getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.GREEN));
+                canvas.drawLine(a.getScaledPoint(), b.getScaledPoint(), PixelatedCanvas.getRGBFromColor(Color.GREEN)); // draw line inside rectangle
             }
         }
 
-        rectangle.drawFigure(PixelatedCanvas.getRGBFromColor(Color.RED), canvas);
+        rectangle.drawFigure(PixelatedCanvas.getRGBFromColor(Color.RED), canvas); // draw rectangle's border
     }
 }

@@ -38,6 +38,16 @@ public class Point {
         return false;
     }
 
+    /**
+     * Method calculate Cohen-Sutherland code. Top and bottom switched because of Canvas orientation. <p>
+     * - 1st bit if point to the left of the rectangle <p>
+     * - 2nd bit if point to the right of the rectangle <p>
+     * - 3rd bit if point to the top of the rectangle <p>
+     * - 4th bit if point to the bottom of the rectangle
+     *
+     * @param rectangle rectangle with which compare
+     * @return Cohen-Sutherland code
+     */
     public int getCohenSutherlandCode(Rectangle rectangle) {
         int result = 0;
         if (x < rectangle.getMinX()) // left

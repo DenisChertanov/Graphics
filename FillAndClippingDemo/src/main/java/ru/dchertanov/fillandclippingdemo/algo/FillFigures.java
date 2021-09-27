@@ -12,6 +12,9 @@ public class FillFigures {
 
     private FillFigures() {}
 
+    /**
+     * Algo which fills every region's row (fills all neighbor pixels with same color as given point)
+     */
     public static void fillByRowsWithPoint(PixelatedCanvas canvas, int fillColor, Point point) {
         canvas.clearFillUsed();
         previousColor = canvas.getPixelRGB(point.getX(), point.getY());
@@ -34,6 +37,9 @@ public class FillFigures {
         }
     }
 
+    /**
+     * Method finds all sections for filling in neighbor raw
+     */
     private static void handleNeighborRow(int xStart, int xEnd, int y, Stack<Point> stack) {
         if (!canvas.isPixelInsideCanvas(xStart, y))
             return;

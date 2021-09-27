@@ -40,10 +40,12 @@ public class PixelatedCanvas extends Canvas {
     }
 
     /**
-     * Method which draw figure on canvas by list of points.
+     * Method which draw figure on canvas by list of points. <p>
      * Coordinates multiplied by 2 (pixels has width and height 2 for greater clarity with zoom)
      *
-     * @param pixels list of pixels
+     * @param pixels       list of pixels
+     * @param endOfDrawing need insert pixels in pixelsColor or not
+     * @param rgb          color of pixels
      */
     public void drawByPixels(List<Point> pixels, boolean endOfDrawing, int rgb) {
         if (pixels.isEmpty())
@@ -62,6 +64,11 @@ public class PixelatedCanvas extends Canvas {
         }
     }
 
+    /**
+     * Method which remove previous figure (by list of pixels) which not set in pixelsColor and restore previous pixel's colors
+     *
+     * @param pixels list of pixels
+     */
     public void removePreviousNotEndPixels(List<Point> pixels) {
         if (pixels.isEmpty())
             return;
@@ -76,6 +83,14 @@ public class PixelatedCanvas extends Canvas {
         }
     }
 
+    /**
+     * Draw and fill horizontal line on canvas
+     *
+     * @param xStart start X coordinate of line
+     * @param xEnd   end X coordinate of line
+     * @param y      Y coordinate of line
+     * @param rgb    line color
+     */
     public void fillHorizontalLine(int xStart, int xEnd, int y, int rgb) {
         if (xStart > xEnd)
             return;
@@ -88,6 +103,13 @@ public class PixelatedCanvas extends Canvas {
         gc.fillRect(xStart * pixelSide, y * pixelSide, (xEnd - xStart + 1) * pixelSide, pixelSide);
     }
 
+    /**
+     * Draw line on canvas by start and end points (set new colors in pixelsColor matrix)
+     *
+     * @param startPoint line's start point
+     * @param endPoint   line's end point
+     * @param rgb        line's color
+     */
     public void drawLine(Point startPoint, Point endPoint, int rgb) {
         Figure line = Figure.getInstance("line");
         line.setFigureStartPoint(startPoint.getX(), startPoint.getY());
