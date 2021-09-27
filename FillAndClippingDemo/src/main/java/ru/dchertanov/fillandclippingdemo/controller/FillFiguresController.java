@@ -101,14 +101,6 @@ public class FillFiguresController {
     }
 
     @FXML
-    private void zoom(Canvas canvas, boolean increase) {
-        if (increase) {
-            canvas.getTransforms().add(new Scale(1.5, 1.5));
-        } else {
-            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
-        }
-    }
-
     protected void onMinusMainCanvasClick() {
         MainViewController.zoom(mainCanvas, false);
     }
