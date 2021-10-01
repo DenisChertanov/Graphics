@@ -4,10 +4,7 @@ module ru.dchertanov.fillandclippingdemo {
     requires java.desktop;
     requires javafx.swing;
 
-    opens ru.dchertanov.fillandclippingdemo to javafx.fxml;
-    opens ru.dchertanov.fillandclippingdemo.figures to javafx.fxml;
     opens ru.dchertanov.fillandclippingdemo.controller to javafx.fxml;
-    opens ru.dchertanov.fillandclippingdemo.util to javafx.fxml;
 
     exports ru.dchertanov.fillandclippingdemo;
     exports ru.dchertanov.fillandclippingdemo.controller;
