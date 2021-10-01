@@ -90,7 +90,7 @@ public class FillPolygonsController {
         isDrawing = false;
         edges.get(edges.size() - 1).setNextEdgePoint(firstPoint, true);
         edges.add(new Edge(lastPoint, firstPoint));
-        edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getNextEdgePoint(), false);
+        edges.get(edges.size() - 1).setNextEdgePoint(edges.get(0).getEndPoint(), false);
         mainCanvas.drawLine(lastPoint, firstPoint, PixelatedCanvas.getRGBFromColor(Color.BLACK));
     }
 
