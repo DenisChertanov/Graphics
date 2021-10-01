@@ -10,7 +10,8 @@ public class FillPolygons {
     private static int yMin;
     private static int yMax;
 
-    private FillPolygons() {}
+    private FillPolygons() {
+    }
 
     /**
      * Algo for filling polygons (with calculating intersections point on every line)
@@ -30,12 +31,19 @@ public class FillPolygons {
      */
     private static List<Integer> getPolygonIntersectionsWithLine(List<Edge> edges, int y) {
         List<Integer> intersections = new ArrayList<>();
-        for (Edge edge : edges) {
-            if (y < edge.getMinY() || y > edge.getMaxY())
+        for (int i = 0; i < edges.size(); ++i) {
+            Edge edge = edges.get(i);
+            if (y < edge.getMinY() || y > edge.getMaxY() || edge.isHorizontal())
                 continue;
-            if (y == edge.getEndPoint().getY() &&
-                    Integer.signum(y - edge.getStartPoint().getY()) != Integer.signum(y - edge.getNextEdgePoint().getY())) {
-                continue;
+
+            if (y == edge.getEndPoint().getY()) {
+                int nextY = edge.getNextEdgePoint().getY();
+                if (edge.getEndPoint().getY() == edge.getNextEdgePoint().getY()) {
+                    nextY = edges.get((i + 1) % edges.size()).getNextEdgePoint().getY();
+                }
+
+                if (Integer.signum(y - edge.getStartPoint().getY()) != Integer.signum(y - nextY))
+                    continue;
             }
 
             intersections.add(edge.getIntersectionWithHorizontalLine(y));

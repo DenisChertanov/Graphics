@@ -36,6 +36,10 @@ public class Edge {
         }
     }
 
+    public boolean isHorizontal() {
+        return startPoint.getY() == endPoint.getY();
+    }
+
     public static Edge getScaledEdge(Edge edge) {
         return new Edge(new Point(edge.getStartPoint().getX() * 4, edge.getStartPoint().getY() * 4),
                 new Point(edge.getEndPoint().getX() * 4, edge.getEndPoint().getY() * 4));
