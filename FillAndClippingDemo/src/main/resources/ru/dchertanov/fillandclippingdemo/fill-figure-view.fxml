@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import ru.dchertanov.fillandclippingdemo.util.PixelatedCanvas?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<GridPane style="-fx-background-color: #ccffcc;"
+          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.dchertanov.fillandclippingdemo.controller.FillFiguresController">
+
+    <padding>
+        <Insets left="5" right="50" top="5" bottom="5"/>
+    </padding>
+
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+        <Button fx:id="backButton" maxWidth="50" maxHeight="50" onMouseClicked="#backToMainClick"/>
+    </VBox>
+
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="5">
+            </Insets>
+        </padding>
+        <Button maxWidth="Infinity" onMouseClicked="#onLineClick" text="Отрезок"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onCircleClick" text="Окружность"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onEllipseClick" text="Эллипс"/>
+        <Button maxWidth="Infinity" onMouseClicked="#onFillClick" text="Заливка построчно"/>
+    </VBox>
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button onMouseClicked="#aboutButtonClick" text="О программе"/>
+    </HBox>
+
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.rowSpan="1"
+                style="-fx-background: white; -fx-border-color: black;">
+        <GridPane.margin>
+            <Insets right="20" left="10"/>
+        </GridPane.margin>
+        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0" onMouseDragged="#onMainCanvasDragged"
+                         onMousePressed="#onMainCanvasPressed" onMouseClicked="#onFillRegionClick"
+                         onMouseReleased="#onMainCanvasReleased"/>
+    </ScrollPane>
+
+    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1" spacing="5">
+        <GridPane.margin>
+            <Insets left="10"/>
+        </GridPane.margin>
+        <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2"
+          GridPane.rowSpan="1">
+        <Button onMouseClicked="#onClearButtonClick" text="Очистить"/>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <ColorPicker fx:id="colorPicker"/>
+    </HBox>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" minWidth="160" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+    </rowConstraints>
+</GridPane>
+
