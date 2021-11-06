@@ -1,0 +1,18 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# Package Files #
+*.jar
+*.war
+
+# Idea
+*/.idea/*
+
+# Maven
+*/target/*
+
+# Gradle
+*/gradle/*
