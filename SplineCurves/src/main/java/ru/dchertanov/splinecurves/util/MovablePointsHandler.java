@@ -1,6 +1,7 @@
 package ru.dchertanov.splinecurves.util;
 
 import javafx.scene.paint.Color;
+import ru.dchertanov.splinecurves.algo.ElementaryBezierCurve;
 import ru.dchertanov.splinecurves.figures.Circle;
 import ru.dchertanov.splinecurves.figures.Figure;
 import ru.dchertanov.splinecurves.filling.FillFigures;
@@ -21,6 +22,10 @@ public class MovablePointsHandler {
         }
 
         return Optional.empty();
+    }
+
+    public void drawElementaryBezierCurve(int colorRGB, PixelatedCanvas canvas) {
+        ElementaryBezierCurve.drawBezierCurve(points, colorRGB, canvas);
     }
 
     public void drawBorder(int borderColorRGB, PixelatedCanvas canvas) {

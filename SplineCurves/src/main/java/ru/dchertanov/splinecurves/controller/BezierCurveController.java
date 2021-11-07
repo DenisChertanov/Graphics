@@ -51,6 +51,7 @@ public class BezierCurveController {
 
             movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
             movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.BLUE), mainCanvas);
+            movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
             movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
         }
     }
@@ -67,6 +68,7 @@ public class BezierCurveController {
 
             movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
             movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.BLUE), mainCanvas);
+            movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
             movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
         }
     }
@@ -74,6 +76,7 @@ public class BezierCurveController {
     private void removePreviousFigure() {
         movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
         movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
+        movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
     }
 
     @FXML
