@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.function.Function;
 
 public final class ElementaryBezierCurve {
+    private static final double DELTA_T = 0.0001;
+
     private ElementaryBezierCurve() {
     }
 
@@ -16,7 +18,7 @@ public final class ElementaryBezierCurve {
         List<Point> scaledPoints = getScaledPoints(points);
         List<Point> pixels = new ArrayList<>();
 
-        for (double t = 0.0001; t < 1.0; t += 0.0001) {
+        for (double t = DELTA_T; t < 1.0; t += DELTA_T) {
             int x = getNextCoordinate(scaledPoints, t, Point::getX);
             int y = getNextCoordinate(scaledPoints, t, Point::getY);
             pixels.add(new Point(x, y));
