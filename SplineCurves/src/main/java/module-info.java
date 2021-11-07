@@ -4,10 +4,10 @@ module ru.dchertanov.fillandclippingdemo {
     requires java.desktop;
     requires javafx.swing;
 
-//    opens ru.dchertanov.splinecurves.controller to javafx.fxml;
+    opens ru.dchertanov.splinecurves.controller to javafx.fxml;
 
     exports ru.dchertanov.splinecurves;
-//    exports ru.dchertanov.splinecurves.controller;
-//    exports ru.dchertanov.splinecurves.figures;
-//    exports ru.dchertanov.splinecurves.util;
+    exports ru.dchertanov.splinecurves.controller;
+    exports ru.dchertanov.splinecurves.figures;
+    exports ru.dchertanov.splinecurves.util;
 }
