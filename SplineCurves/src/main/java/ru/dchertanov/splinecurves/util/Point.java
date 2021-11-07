@@ -10,6 +10,10 @@ public class Point {
         return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
     }
 
+    public static Point getMiddlePoint(Point a, Point b) {
+        return new Point((int) ((a.getX() + b.getX()) / 2.0), (int) ((a.getY() + b.getY()) / 2.0));
+    }
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
