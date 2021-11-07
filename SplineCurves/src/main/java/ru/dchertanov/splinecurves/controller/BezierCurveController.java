@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import ru.dchertanov.splinecurves.util.PixelatedCanvas;
 import ru.dchertanov.splinecurves.util.Point;
-import ru.dchertanov.splinecurves.util.curve.mode.CurveMode;
+import ru.dchertanov.splinecurves.util.CurveMode;
 
 import java.io.IOException;
 import java.util.Optional;
