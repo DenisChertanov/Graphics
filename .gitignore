@@ -16,3 +16,6 @@
 
 # Gradle
 */gradle/*
+
+# MacOS (may be)
+*/.DS_Store
