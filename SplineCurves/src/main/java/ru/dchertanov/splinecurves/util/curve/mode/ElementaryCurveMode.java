@@ -1,0 +1,20 @@
+package ru.dchertanov.splinecurves.util.curve.mode;
+
+import ru.dchertanov.splinecurves.util.PixelatedCanvas;
+
+public class ElementaryCurveMode extends CurveMode {
+    @Override
+    public void removePreviousCurve(int colorRGB, PixelatedCanvas canvas) {
+        movablePointsHandler.drawPoints(colorRGB, canvas);
+        movablePointsHandler.drawBorder(colorRGB, canvas);
+        movablePointsHandler.drawElementaryBezierCurve(colorRGB, canvas);
+    }
+
+    @Override
+    public void drawCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, PixelatedCanvas canvas) {
+        movablePointsHandler.drawPoints(pointColorRGB, canvas);
+        movablePointsHandler.drawBorder(borderColorRGB, canvas);
+        movablePointsHandler.drawElementaryBezierCurve(curveColorRGB, canvas);
+        movablePointsHandler.drawPoints(pointColorRGB, canvas);
+    }
+}

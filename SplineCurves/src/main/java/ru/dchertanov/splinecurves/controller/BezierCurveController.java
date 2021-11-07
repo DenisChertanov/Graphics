@@ -6,16 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ru.dchertanov.splinecurves.figures.Circle;
-import ru.dchertanov.splinecurves.figures.Figure;
-import ru.dchertanov.splinecurves.filling.FillFigures;
-import ru.dchertanov.splinecurves.util.MovablePointsHandler;
 import ru.dchertanov.splinecurves.util.PixelatedCanvas;
 import ru.dchertanov.splinecurves.util.Point;
+import ru.dchertanov.splinecurves.util.curve.mode.CurveMode;
 
 import java.io.IOException;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 public class BezierCurveController {
     @FXML
@@ -24,9 +20,9 @@ public class BezierCurveController {
     private PixelatedCanvas repeatingCanvas;
     @FXML
     private Button backButton;
-    private MovablePointsHandler movablePointsHandler = new MovablePointsHandler();
     private boolean isMovingPoint = false;
     private int movingPointIndex = -1;
+    private CurveMode curveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY);
 
     public void initialize() {
         MainViewController.configureBackToMainButton(backButton);
@@ -34,7 +30,7 @@ public class BezierCurveController {
 
     @FXML
     protected void onMainCanvasPressed(MouseEvent mouseEvent) {
-        Optional<Integer> movingPoint = movablePointsHandler.getNearestPoint(new Point(mouseEvent));
+        Optional<Integer> movingPoint = curveMode.getNearestPoint(new Point(mouseEvent));
         if (movingPoint.isPresent()) {
             // handle movable point
             isMovingPoint = true;
@@ -45,14 +41,14 @@ public class BezierCurveController {
     @FXML
     protected void onMainCanvasDragged(MouseEvent mouseEvent) {
         if (isMovingPoint) {
-            removePreviousFigure();
+            curveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
 
-            movablePointsHandler.replacePoint(movingPointIndex, new Point(mouseEvent));
+            curveMode.replacePoint(movingPointIndex, new Point(mouseEvent));
 
-            movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
-            movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.BLUE), mainCanvas);
-            movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
-            movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
+            curveMode.drawCurve(PixelatedCanvas.getRGBFromColor(Color.RED),
+                    PixelatedCanvas.getRGBFromColor(Color.BLUE),
+                    PixelatedCanvas.getRGBFromColor(Color.BLACK),
+                    mainCanvas);
         }
     }
 
@@ -62,21 +58,26 @@ public class BezierCurveController {
             isMovingPoint = false;
         } else {
             // Add new point
-            removePreviousFigure();
+            curveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
 
-            movablePointsHandler.addPoint(new Point(mouseEvent));
-
-            movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
-            movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.BLUE), mainCanvas);
-            movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.BLACK), mainCanvas);
-            movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.RED), mainCanvas);
+            curveMode.addPoint(new Point(mouseEvent));
+            curveMode.drawCurve(PixelatedCanvas.getRGBFromColor(Color.RED),
+                    PixelatedCanvas.getRGBFromColor(Color.BLUE),
+                    PixelatedCanvas.getRGBFromColor(Color.BLACK),
+                    mainCanvas);
         }
     }
 
-    private void removePreviousFigure() {
-        movablePointsHandler.drawPoints(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
-        movablePointsHandler.drawBorder(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
-        movablePointsHandler.drawElementaryBezierCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
+    @FXML
+    protected void setElementaryMode() {
+        curveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY);
+        onClearButtonClick();
+    }
+
+    @FXML
+    protected void setCompositeMode() {
+        curveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE);
+        onClearButtonClick();
     }
 
     @FXML
@@ -106,7 +107,7 @@ public class BezierCurveController {
 
     @FXML
     protected void onClearButtonClick() {
-        movablePointsHandler.clearPoints();
+        curveMode.clearPoints();
         mainCanvas.clearCanvas();
         repeatingCanvas.clearCanvas();
     }
