@@ -14,6 +14,11 @@ public class Point {
         return new Point((int) ((a.getX() + b.getX()) / 2.0), (int) ((a.getY() + b.getY()) / 2.0));
     }
 
+    public static Point getDoubledEndPoint(Point startPoint, Point endPoint) {
+        return new Point(endPoint.getX() + (endPoint.getX() - startPoint.getX()),
+                endPoint.getY() + (endPoint.getY() - startPoint.getY()));
+    }
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;

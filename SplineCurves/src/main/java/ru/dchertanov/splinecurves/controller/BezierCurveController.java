@@ -58,6 +58,10 @@ public class BezierCurveController {
             isMovingPoint = false;
         } else {
             // Add new point
+            if (curveMode.isClosed()) {
+                curveMode = CurveMode.getInstance(curveMode.getCurveModeEnum());
+            }
+
             curveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
 
             curveMode.addPoint(new Point(mouseEvent));
@@ -66,6 +70,15 @@ public class BezierCurveController {
                     PixelatedCanvas.getRGBFromColor(Color.BLACK),
                     mainCanvas);
         }
+    }
+
+    @FXML
+    protected void onCloseCurveClick() {
+        curveMode.closeCurve(PixelatedCanvas.getRGBFromColor(Color.RED),
+                PixelatedCanvas.getRGBFromColor(Color.BLUE),
+                PixelatedCanvas.getRGBFromColor(Color.BLACK),
+                PixelatedCanvas.getRGBFromColor(Color.WHITE),
+                mainCanvas);
     }
 
     @FXML

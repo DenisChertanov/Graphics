@@ -86,6 +86,26 @@ public class MovablePointsHandler {
         points.add(new Point(point.getX(), point.getY()));
     }
 
+    public Point getPoint(int index) {
+        return new Point(points.get(index));
+    }
+
+    public void closeCompositeCurve() {
+        if (points.size() < 4) {
+            return;
+        }
+
+        if ((points.size() & 1) != 0) {
+            points.remove(points.size() - 1);
+        }
+
+        Point lastPoint = points.get(points.size() - 1);
+        points.remove(points.size() - 1);
+        points.add(Point.getDoubledEndPoint(points.get(points.size() - 1), lastPoint));
+        points.add(Point.getDoubledEndPoint(points.get(1), points.get(0)));
+        points.add(points.get(0));
+    }
+
     public void clearPoints() {
         points.clear();
     }

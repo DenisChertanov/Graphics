@@ -26,6 +26,7 @@
         </padding>
         <Button text="Элементарная произвольного порядка" wrapText="true" onMouseClicked="#setElementaryMode"/>
         <Button text="Составная из элементарных 3го порядка" wrapText="true" onMouseClicked="#setCompositeMode"/>
+        <Button text="Замкнуть" onMouseClicked="#onCloseCurveClick"/>
     </VBox>
     <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
           GridPane.rowSpan="1">

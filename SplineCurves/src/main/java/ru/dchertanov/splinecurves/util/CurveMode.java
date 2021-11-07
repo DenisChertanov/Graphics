@@ -5,6 +5,12 @@ import java.util.Optional;
 public final class CurveMode {
     private final MovablePointsHandler movablePointsHandler = new MovablePointsHandler();
     private BinaryConsumer<Integer, PixelatedCanvas> curveDrawer;
+    private final CurveModeEnum curveModeEnum;
+    private boolean isClosed = false;
+
+    public CurveMode(CurveModeEnum curveModeEnum) {
+        this.curveModeEnum = curveModeEnum;
+    }
 
     public void removePreviousCurve(int colorRGB, PixelatedCanvas canvas) {
         movablePointsHandler.drawPoints(colorRGB, canvas);
@@ -17,6 +23,18 @@ public final class CurveMode {
         movablePointsHandler.drawBorder(borderColorRGB, canvas);
         curveDrawer.apply(curveColorRGB, canvas);
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
+    }
+
+    public void closeCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, int backgroundColor, PixelatedCanvas canvas) {
+        isClosed = true;
+
+        removePreviousCurve(backgroundColor, canvas);
+        if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY)) {
+            movablePointsHandler.addPoint(movablePointsHandler.getPoint(0));
+        } else {
+            movablePointsHandler.closeCompositeCurve();
+        }
+        drawCurve(pointColorRGB, borderColorRGB, curveColorRGB, canvas);
     }
 
     public void addPoint(Point point) {
@@ -35,15 +53,23 @@ public final class CurveMode {
         movablePointsHandler.clearPoints();
     }
 
+    public CurveModeEnum getCurveModeEnum() {
+        return curveModeEnum;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
+    }
+
     public static CurveMode getInstance(CurveModeEnum curveMode) {
         CurveMode instance = null;
         switch (curveMode) {
             case ELEMENTARY:
-                instance = new CurveMode();
+                instance = new CurveMode(CurveModeEnum.ELEMENTARY);
                 instance.curveDrawer = instance.movablePointsHandler::drawElementaryBezierCurve;
                 break;
             case COMPOSITE:
-                instance = new CurveMode();
+                instance = new CurveMode(CurveModeEnum.COMPOSITE);
                 instance.curveDrawer = instance.movablePointsHandler::drawCompositeBezierCurve;
                 break;
         }
