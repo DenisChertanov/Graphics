@@ -37,7 +37,10 @@
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
-        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0"/>
+        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0"
+                         onMouseDragged="#onMainCanvasDragged"
+                         onMousePressed="#onMainCanvasPressed"
+                         onMouseReleased="#onMainCanvasReleased"/>
     </ScrollPane>
     <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
                 style="-fx-border-color: black; -fx-background: #ccffcc;">
@@ -64,7 +67,7 @@
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2"
           GridPane.rowSpan="1">
-        <Button text="Очистить"/>
+        <Button text="Очистить" onMouseClicked="#onClearButtonClick"/>
     </HBox>
 
     <columnConstraints>

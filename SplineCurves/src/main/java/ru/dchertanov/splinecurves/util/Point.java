@@ -1,5 +1,7 @@
 package ru.dchertanov.splinecurves.util;
 
+import javafx.scene.input.MouseEvent;
+
 public class Point {
     private int x;
     private int y;
@@ -16,6 +18,11 @@ public class Point {
     public Point(Point point) {
         x = point.x;
         y = point.y;
+    }
+
+    public Point(MouseEvent mouseEvent) {
+        x = (int) mouseEvent.getX();
+        y = (int) mouseEvent.getY();
     }
 
     public void validate() {

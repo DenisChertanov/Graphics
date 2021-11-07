@@ -19,6 +19,9 @@ public abstract class Figure {
             case ("line"):
                 result = new Line();
                 break;
+            case ("circle"):
+                result = new Circle();
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + figureName);
         }
