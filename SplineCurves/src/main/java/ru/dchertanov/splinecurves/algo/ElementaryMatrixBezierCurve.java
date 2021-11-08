@@ -8,23 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-public final class ElementaryBezierCurve {
-    private static final double DELTA_T = 0.0001;
+public final class ElementaryMatrixBezierCurve {
+    private static final double DELTA_T = 0.01;
 
-    private ElementaryBezierCurve() {
+    private ElementaryMatrixBezierCurve() {
     }
 
     public static void drawBezierCurve(List<Point> points, int colorRGB, PixelatedCanvas canvas) {
-        List<Point> scaledPoints = getScaledPoints(points);
         List<Point> pixels = new ArrayList<>();
 
-        for (double t = DELTA_T; t < 1.0; t += DELTA_T) {
-            int x = getNextCoordinate(scaledPoints, t, Point::getX);
-            int y = getNextCoordinate(scaledPoints, t, Point::getY);
+        for (double t = 0; t <= 1.0; t += DELTA_T) {
+            int x = getNextCoordinate(points, t, Point::getX);
+            int y = getNextCoordinate(points, t, Point::getY);
             pixels.add(new Point(x, y));
         }
 
-        canvas.drawByPixels(pixels, true, colorRGB);
+        canvas.drawCurveLineByPoints(pixels, colorRGB);
     }
 
     private static int getNextCoordinate(List<Point> points, double t, Function<Point, Integer> coordinateFunction) {
@@ -38,14 +37,5 @@ public final class ElementaryBezierCurve {
         }
 
         return (int) coordinate;
-    }
-
-    private static List<Point> getScaledPoints(List<Point> points) {
-        List<Point> scaledPoints = new ArrayList<>();
-        for (var point : points) {
-            scaledPoints.add(new Point(point.getX() / 2, point.getY() / 2));
-        }
-
-        return scaledPoints;
     }
 }

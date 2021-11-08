@@ -119,6 +119,12 @@ public class PixelatedCanvas extends Canvas {
         drawByPixels(line.getPixels(), true, rgb);
     }
 
+    public void drawCurveLineByPoints(List<Point> points, int rgb) {
+        for (int i = 0; i < points.size() - 1; ++i) {
+            drawLine(points.get(i), points.get(i + 1), rgb);
+        }
+    }
+
     public boolean isPixelInsideCanvas(int x, int y) {
         x *= pixelSide;
         y *= pixelSide;

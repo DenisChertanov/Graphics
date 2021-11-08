@@ -2,6 +2,9 @@ package ru.dchertanov.splinecurves.util;
 
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Point {
     private int x;
     private int y;
@@ -19,6 +22,15 @@ public class Point {
                 endPoint.getY() + (endPoint.getY() - startPoint.getY()));
     }
 
+    public static List<Point> getScaledPointsList(List<Point> points) {
+        List<Point> scaledPoints = new ArrayList<>();
+        for (var point : points) {
+            scaledPoints.add(new Point(point.getX() / 2, point.getY() / 2));
+        }
+
+        return scaledPoints;
+    }
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -32,6 +44,11 @@ public class Point {
     public Point(MouseEvent mouseEvent) {
         x = (int) mouseEvent.getX();
         y = (int) mouseEvent.getY();
+    }
+
+    public Point(DoublePoint doublePoint) {
+        x = (int) doublePoint.getX();
+        y = (int) doublePoint.getY();
     }
 
     public void validate() {

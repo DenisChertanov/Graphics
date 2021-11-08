@@ -1,11 +1,16 @@
 package ru.dchertanov.splinecurves.util;
 
+import ru.dchertanov.splinecurves.algo.ElementaryCasteljauBezierCurve;
+import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
+
+import java.util.List;
 import java.util.Optional;
 
 public final class CurveMode {
     private final MovablePointsHandler movablePointsHandler = new MovablePointsHandler();
-    private BinaryConsumer<Integer, PixelatedCanvas> curveDrawer;
     private final CurveModeEnum curveModeEnum;
+    private TernaryConsumer<Integer, PixelatedCanvas, TernaryConsumer<List<Point>, Integer, PixelatedCanvas>> curveDrawer;
+    private TernaryConsumer<List<Point>, Integer, PixelatedCanvas> curveDrawerAlgo;
     private boolean isClosed = false;
 
     public CurveMode(CurveModeEnum curveModeEnum) {
@@ -15,13 +20,13 @@ public final class CurveMode {
     public void removePreviousCurve(int colorRGB, PixelatedCanvas canvas) {
         movablePointsHandler.drawPoints(colorRGB, canvas);
         movablePointsHandler.drawBorder(colorRGB, canvas);
-        curveDrawer.apply(colorRGB, canvas);
+        curveDrawer.apply(colorRGB, canvas, curveDrawerAlgo);
     }
 
     public void drawCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, PixelatedCanvas canvas) {
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
         movablePointsHandler.drawBorder(borderColorRGB, canvas);
-        curveDrawer.apply(curveColorRGB, canvas);
+        curveDrawer.apply(curveColorRGB, canvas, curveDrawerAlgo);
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
     }
 
@@ -29,7 +34,7 @@ public final class CurveMode {
         isClosed = true;
 
         removePreviousCurve(backgroundColor, canvas);
-        if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY)) {
+        if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY_MATRIX)) {
             movablePointsHandler.addPoint(movablePointsHandler.getPoint(0));
         } else {
             movablePointsHandler.closeCompositeCurve();
@@ -64,13 +69,25 @@ public final class CurveMode {
     public static CurveMode getInstance(CurveModeEnum curveMode) {
         CurveMode instance = null;
         switch (curveMode) {
-            case ELEMENTARY:
-                instance = new CurveMode(CurveModeEnum.ELEMENTARY);
+            case ELEMENTARY_MATRIX:
+                instance = new CurveMode(CurveModeEnum.ELEMENTARY_MATRIX);
                 instance.curveDrawer = instance.movablePointsHandler::drawElementaryBezierCurve;
+                instance.curveDrawerAlgo = ElementaryMatrixBezierCurve::drawBezierCurve;
                 break;
-            case COMPOSITE:
-                instance = new CurveMode(CurveModeEnum.COMPOSITE);
+            case COMPOSITE_MATRIX:
+                instance = new CurveMode(CurveModeEnum.COMPOSITE_MATRIX);
                 instance.curveDrawer = instance.movablePointsHandler::drawCompositeBezierCurve;
+                instance.curveDrawerAlgo = ElementaryMatrixBezierCurve::drawBezierCurve;
+                break;
+            case ELEMENTARY_CASTELJAU:
+                instance = new CurveMode(CurveModeEnum.ELEMENTARY_MATRIX);
+                instance.curveDrawer = instance.movablePointsHandler::drawElementaryBezierCurve;
+                instance.curveDrawerAlgo = ElementaryCasteljauBezierCurve::drawBezierCurve;
+                break;
+            case COMPOSITE_CASTELJAU:
+                instance = new CurveMode(CurveModeEnum.COMPOSITE_MATRIX);
+                instance.curveDrawer = instance.movablePointsHandler::drawCompositeBezierCurve;
+                instance.curveDrawerAlgo = ElementaryCasteljauBezierCurve::drawBezierCurve;
                 break;
         }
 
@@ -78,6 +95,6 @@ public final class CurveMode {
     }
 
     public enum CurveModeEnum {
-        ELEMENTARY, COMPOSITE
+        ELEMENTARY_MATRIX, COMPOSITE_MATRIX, ELEMENTARY_CASTELJAU, COMPOSITE_CASTELJAU
     }
 }

@@ -1,6 +1,6 @@
 package ru.dchertanov.splinecurves.util;
 
-import ru.dchertanov.splinecurves.algo.ElementaryBezierCurve;
+import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
 import ru.dchertanov.splinecurves.figures.Circle;
 import ru.dchertanov.splinecurves.figures.Figure;
 import ru.dchertanov.splinecurves.filling.FillFigures;
@@ -24,17 +24,26 @@ public class MovablePointsHandler {
         return Optional.empty();
     }
 
-    public void drawElementaryBezierCurve(int colorRGB, PixelatedCanvas canvas) {
-        ElementaryBezierCurve.drawBezierCurve(points, colorRGB, canvas);
+    public void drawElementaryBezierCurve(int colorRGB, PixelatedCanvas canvas,
+                                          TernaryConsumer<List<Point>, Integer, PixelatedCanvas> drawer) {
+//        ElementaryMatrixBezierCurve.drawBezierCurve(points, colorRGB, canvas);
+        drawer.apply(points, colorRGB, canvas);
     }
 
-    public void drawCompositeBezierCurve(int colorRGB, PixelatedCanvas canvas) {
+    public void drawCompositeBezierCurve(int colorRGB, PixelatedCanvas canvas,
+                                         TernaryConsumer<List<Point>, Integer, PixelatedCanvas> drawer) {
         for (int index = 0; index < points.size(); index += 2) {
             if (index + PATTERN_CURVE_POINTS_NUMBER > points.size()) {
                 break;
             }
 
-            ElementaryBezierCurve.drawBezierCurve(
+//            ElementaryMatrixBezierCurve.drawBezierCurve(
+//                    List.of(getStartPointForCompositeCurve(index),
+//                            points.get(index + 1),
+//                            points.get(index + 2),
+//                            getEndPointForCompositeCurve(index)),
+//                    colorRGB, canvas);
+            drawer.apply(
                     List.of(getStartPointForCompositeCurve(index),
                             points.get(index + 1),
                             points.get(index + 2),
