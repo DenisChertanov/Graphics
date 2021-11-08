@@ -1,9 +1,10 @@
-package ru.dchertanov.splinecurves.util;
+package ru.dchertanov.splinecurves.util.graphics;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import ru.dchertanov.splinecurves.figures.Figure;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 import java.util.Arrays;
 import java.util.List;

@@ -10,4 +10,6 @@ module ru.dchertanov.fillandclippingdemo {
     exports ru.dchertanov.splinecurves.controller;
     exports ru.dchertanov.splinecurves.figures;
     exports ru.dchertanov.splinecurves.util;
+    exports ru.dchertanov.splinecurves.util.points;
+    exports ru.dchertanov.splinecurves.util.graphics;
 }

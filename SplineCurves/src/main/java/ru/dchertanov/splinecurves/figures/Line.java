@@ -1,6 +1,6 @@
 package ru.dchertanov.splinecurves.figures;
 
-import ru.dchertanov.splinecurves.util.Point;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 public class Line extends Figure {
     protected Line() {

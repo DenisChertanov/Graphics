@@ -1,8 +1,8 @@
 package ru.dchertanov.splinecurves.algo;
 
 import ru.dchertanov.splinecurves.util.Combinations;
-import ru.dchertanov.splinecurves.util.PixelatedCanvas;
-import ru.dchertanov.splinecurves.util.Point;
+import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.dchertanov.splinecurves.util;
+package ru.dchertanov.splinecurves.util.points;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,13 @@ public class DoublePoint {
         y = point.getY();
     }
 
+    /**
+     *
+     * @param startPoint
+     * @param endPoint
+     * @param ratio
+     * @return
+     */
     public static DoublePoint getRatioPointOnLine(DoublePoint startPoint, DoublePoint endPoint, double ratio) {
         return new DoublePoint(
                 startPoint.getX() + (endPoint.getX() - startPoint.getX()) * ratio,

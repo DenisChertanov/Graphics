@@ -1,4 +1,4 @@
-package ru.dchertanov.splinecurves.util;
+package ru.dchertanov.splinecurves.util.points;
 
 import javafx.scene.input.MouseEvent;
 

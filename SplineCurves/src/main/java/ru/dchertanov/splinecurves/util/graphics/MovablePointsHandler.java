@@ -1,9 +1,10 @@
-package ru.dchertanov.splinecurves.util;
+package ru.dchertanov.splinecurves.util.graphics;
 
-import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
 import ru.dchertanov.splinecurves.figures.Circle;
 import ru.dchertanov.splinecurves.figures.Figure;
 import ru.dchertanov.splinecurves.filling.FillFigures;
+import ru.dchertanov.splinecurves.util.TernaryConsumer;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 import java.util.ArrayList;
 import java.util.List;

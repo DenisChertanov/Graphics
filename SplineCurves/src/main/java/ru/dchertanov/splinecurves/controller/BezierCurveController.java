@@ -6,9 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ru.dchertanov.splinecurves.util.PixelatedCanvas;
-import ru.dchertanov.splinecurves.util.Point;
-import ru.dchertanov.splinecurves.util.CurveMode;
+import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas;
+import ru.dchertanov.splinecurves.util.points.Point;
+import ru.dchertanov.splinecurves.util.graphics.CurveMode;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package ru.dchertanov.splinecurves.filling;
 
-import ru.dchertanov.splinecurves.util.PixelatedCanvas;
-import ru.dchertanov.splinecurves.util.Point;
+import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 import java.util.Stack;
 import java.util.function.IntUnaryOperator;
@@ -10,7 +10,8 @@ public class FillFigures {
     private static int previousColor;
     private static PixelatedCanvas canvas;
 
-    private FillFigures() {}
+    private FillFigures() {
+    }
 
     /**
      * Algo which fills every region's row (fills all neighbor pixels with same color as given point)

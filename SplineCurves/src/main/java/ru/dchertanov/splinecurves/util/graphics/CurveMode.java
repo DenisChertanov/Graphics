@@ -1,7 +1,9 @@
-package ru.dchertanov.splinecurves.util;
+package ru.dchertanov.splinecurves.util.graphics;
 
 import ru.dchertanov.splinecurves.algo.ElementaryCasteljauBezierCurve;
 import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
+import ru.dchertanov.splinecurves.util.TernaryConsumer;
+import ru.dchertanov.splinecurves.util.points.Point;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<?import ru.dchertanov.splinecurves.util.PixelatedCanvas?>
+<?import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas?>
 <GridPane style="-fx-background-color: #ccffcc;"
           xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="ru.dchertanov.splinecurves.controller.BezierCurveController">
