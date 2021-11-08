@@ -13,6 +13,13 @@ public final class ElementaryCasteljauBezierCurve {
     private ElementaryCasteljauBezierCurve() {
     }
 
+    /**
+     * Method calculates pixels on curve (by Casteljau algo), draws its on given canvas
+     *
+     * @param points   list of reference points
+     * @param colorRGB color for curve
+     * @param canvas
+     */
     public static void drawBezierCurve(List<Point> points, int colorRGB, PixelatedCanvas canvas) {
         if (points.isEmpty())
             return;
@@ -22,10 +29,16 @@ public final class ElementaryCasteljauBezierCurve {
         for (double t = 0; t <= 1.0; t += DELTA_T) {
             pixels.add(getNextCurvePoint(DoublePoint.transformNonDoublePoints(points), t));
         }
-
         canvas.drawCurveLineByPoints(pixels, colorRGB);
     }
 
+    /**
+     * Recursive method for finding point on curve. In every step number of points decreased by 1
+     *
+     * @param points list of point on current recursive level
+     * @param t      ratio
+     * @return point on curve with given ratio
+     */
     private static Point getNextCurvePoint(List<DoublePoint> points, double t) {
         if (points.size() == 1) {
             return new Point(points.get(0));

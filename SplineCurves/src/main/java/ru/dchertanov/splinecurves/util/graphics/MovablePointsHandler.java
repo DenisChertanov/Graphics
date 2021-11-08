@@ -27,7 +27,6 @@ public class MovablePointsHandler {
 
     public void drawElementaryBezierCurve(int colorRGB, PixelatedCanvas canvas,
                                           TernaryConsumer<List<Point>, Integer, PixelatedCanvas> drawer) {
-//        ElementaryMatrixBezierCurve.drawBezierCurve(points, colorRGB, canvas);
         drawer.apply(points, colorRGB, canvas);
     }
 
@@ -38,12 +37,6 @@ public class MovablePointsHandler {
                 break;
             }
 
-//            ElementaryMatrixBezierCurve.drawBezierCurve(
-//                    List.of(getStartPointForCompositeCurve(index),
-//                            points.get(index + 1),
-//                            points.get(index + 2),
-//                            getEndPointForCompositeCurve(index)),
-//                    colorRGB, canvas);
             drawer.apply(
                     List.of(getStartPointForCompositeCurve(index),
                             points.get(index + 1),

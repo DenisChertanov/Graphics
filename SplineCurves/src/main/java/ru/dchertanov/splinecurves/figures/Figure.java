@@ -72,8 +72,4 @@ public abstract class Figure {
     public Point getStartPoint() {
         return localStartPoint;
     }
-
-    public Point getEndPoint() {
-        return localEndPoint;
-    }
 }
