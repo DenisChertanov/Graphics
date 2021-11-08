@@ -3,16 +3,13 @@ package ru.dchertanov.splinecurves.controller;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
-import javafx.stage.Stage;
 import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas;
 import ru.dchertanov.splinecurves.util.points.Point;
 import ru.dchertanov.splinecurves.util.graphics.CurveMode;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public class BezierCurveController {
@@ -20,8 +17,6 @@ public class BezierCurveController {
     private PixelatedCanvas mainCanvas;
     @FXML
     private PixelatedCanvas repeatingCanvas;
-    @FXML
-    private Button backButton;
     private boolean isMovingPoint = false;
     private int movingPointIndex = -1;
     private CurveMode mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX);
@@ -100,6 +95,7 @@ public class BezierCurveController {
     protected void setElementaryModeBezier() {
         mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX);
         repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_CASTELJAU);
+        repeatingCanvas.setVisible(true); // remove when add Boor
         onClearButtonClick();
     }
 
@@ -107,6 +103,7 @@ public class BezierCurveController {
     protected void setCompositeModeBezier() {
         mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_MATRIX);
         repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_CASTELJAU);
+        repeatingCanvas.setVisible(true); // remove when add Boor
         onClearButtonClick();
     }
 
@@ -114,6 +111,7 @@ public class BezierCurveController {
     protected void setCompositeModeBSpline() {
         mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_B_SPLINE_MATRIX);
         repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_B_SPLINE_BURA);
+        repeatingCanvas.setVisible(false); // remove when add Boor
         onClearButtonClick();
     }
 
@@ -163,11 +161,12 @@ public class BezierCurveController {
                 "Задание: Реализовать 2 алгоритма построения кривых Безье (матричный, алгоритм Кастельжо).\n" +
                 "Продемонстрировать построение элементарной произвольного порядка, составной из элементарных 3го порядка.\n" +
                 "Реализовать замыкание кривых.\n" +
-                "Использование: В левой части экрана необходимо выбрать режим построения кривых (элементарные или составные).\n" +
+                "Реализовать построение B-сплайна мртичным алгоритмом.\n" +
+                "Использование: В левой части экрана необходимо выбрать режим построения кривых.\n" +
                 "Рисование осуществляется на белом полотне (с помощью нажатий кнопки мышки ставятся опорные точки кривой,\n" +
                 "С помощью зажатия мышки и перетаскивания происходит изменение положение опорной точки)\n" +
-                "На белом полотне рисуется кривая, построенная с помощью матричного метода.\n" +
-                "На зеленом полотне рисуется кривая, построенная с помощью алгоритма Кастельжо.\n" +
+                "На белом полотне рисуется кривая, построенная с помощью матричного метода. (для Безье и B-сплайнов)\n" +
+                "На зеленом полотне рисуется кривая, построенная с помощью алгоритма Кастельжо. (только для Безье)\n" +
                 "Для замыкания необходимо нажать кнопку \"Замкнуть\".");
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(600, 400);
