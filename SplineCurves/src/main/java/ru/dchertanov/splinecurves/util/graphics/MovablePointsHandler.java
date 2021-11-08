@@ -62,6 +62,13 @@ public class MovablePointsHandler {
         }
     }
 
+    public void drawCompositeBSpline(int colorRGB, PixelatedCanvas canvas,
+                                     TernaryConsumer<List<Point>, Integer, PixelatedCanvas> drawer) {
+        for (int index = 0; index < points.size() - 3; ++index) {
+            drawer.apply(points.subList(index, index + 4), colorRGB, canvas);
+        }
+    }
+
     public void drawBorder(int borderColorRGB, PixelatedCanvas canvas) {
         for (int i = 0; i < points.size() - 1; ++i) {
             Figure line = Figure.getInstance("line");

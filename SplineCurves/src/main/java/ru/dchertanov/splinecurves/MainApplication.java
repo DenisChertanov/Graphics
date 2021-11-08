@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("curve-view.fxml"));
         var screen = Screen.getPrimary().getBounds();
         Scene scene = new Scene(fxmlLoader.load(), screen.getWidth() * 2 / 3, screen.getHeight() * 2 / 3);
         stage.setTitle("SplineCurves");

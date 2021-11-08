@@ -1,10 +1,12 @@
 package ru.dchertanov.splinecurves.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas;
 import ru.dchertanov.splinecurves.util.points.Point;
@@ -24,10 +26,6 @@ public class BezierCurveController {
     private int movingPointIndex = -1;
     private CurveMode mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX);
     private CurveMode repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_CASTELJAU);
-
-    public void initialize() {
-        MainViewController.configureBackToMainButton(backButton);
-    }
 
     @FXML
     protected void onMainCanvasPressed(MouseEvent mouseEvent) {
@@ -101,42 +99,44 @@ public class BezierCurveController {
     }
 
     @FXML
-    protected void setElementaryMode() {
+    protected void setElementaryModeBezier() {
         mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX);
         repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_CASTELJAU);
         onClearButtonClick();
     }
 
     @FXML
-    protected void setCompositeMode() {
+    protected void setCompositeModeBezier() {
         mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_MATRIX);
         repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_CASTELJAU);
         onClearButtonClick();
     }
 
     @FXML
+    protected void setCompositeModeBSpline() {
+        mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_B_SPLINE_MATRIX);
+        repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.COMPOSITE_B_SPLINE_BURA);
+        onClearButtonClick();
+    }
+
+    @FXML
     protected void onPlusMainCanvasClick() {
-        MainViewController.zoom(mainCanvas, true);
+        zoom(mainCanvas, true);
     }
 
     @FXML
     protected void onMinusMainCanvasClick() {
-        MainViewController.zoom(mainCanvas, false);
+        zoom(mainCanvas, false);
     }
 
     @FXML
     protected void onPlusRepeatingCanvasClick() {
-        MainViewController.zoom(repeatingCanvas, true);
+        zoom(repeatingCanvas, true);
     }
 
     @FXML
     protected void onMinusRepeatingCanvasClick() {
-        MainViewController.zoom(repeatingCanvas, false);
-    }
-
-    @FXML
-    protected void backToMainClick() throws IOException {
-        MainViewController.backToMainClick((Stage) mainCanvas.getScene().getWindow());
+        zoom(repeatingCanvas, false);
     }
 
     @FXML
@@ -145,6 +145,14 @@ public class BezierCurveController {
         repeatingCurveMode.clearPoints();
         mainCanvas.clearCanvas();
         repeatingCanvas.clearCanvas();
+    }
+
+    public static void zoom(Canvas canvas, boolean increase) {
+        if (increase) {
+            canvas.getTransforms().add(new Scale(1.5, 1.5));
+        } else {
+            canvas.getTransforms().add(new Scale(1 / 1.5, 1 / 1.5));
+        }
     }
 
     @FXML

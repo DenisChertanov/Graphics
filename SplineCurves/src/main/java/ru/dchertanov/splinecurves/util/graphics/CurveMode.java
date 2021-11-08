@@ -1,6 +1,7 @@
 package ru.dchertanov.splinecurves.util.graphics;
 
 import ru.dchertanov.splinecurves.algo.ElementaryCasteljauBezierCurve;
+import ru.dchertanov.splinecurves.algo.ElementaryMatrixBSpline;
 import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
 import ru.dchertanov.splinecurves.util.TernaryConsumer;
 import ru.dchertanov.splinecurves.util.points.Point;
@@ -91,12 +92,23 @@ public final class CurveMode {
                 instance.curveDrawer = instance.movablePointsHandler::drawCompositeBezierCurve;
                 instance.curveDrawerAlgo = ElementaryCasteljauBezierCurve::drawBezierCurve;
                 break;
+            case COMPOSITE_B_SPLINE_MATRIX:
+                instance = new CurveMode(CurveModeEnum.COMPOSITE_B_SPLINE_MATRIX);
+                instance.curveDrawer = instance.movablePointsHandler::drawCompositeBSpline;
+                instance.curveDrawerAlgo = ElementaryMatrixBSpline::drawBezierCurve;
+                break;
+            case COMPOSITE_B_SPLINE_BURA:
+                instance = new CurveMode(CurveModeEnum.COMPOSITE_B_SPLINE_MATRIX);
+                instance.curveDrawer = instance.movablePointsHandler::drawCompositeBSpline;
+                instance.curveDrawerAlgo = (a, b, c) -> {
+                }; // tmp
+                break;
         }
 
         return instance;
     }
 
     public enum CurveModeEnum {
-        ELEMENTARY_MATRIX, COMPOSITE_MATRIX, ELEMENTARY_CASTELJAU, COMPOSITE_CASTELJAU
+        ELEMENTARY_MATRIX, COMPOSITE_MATRIX, ELEMENTARY_CASTELJAU, COMPOSITE_CASTELJAU, COMPOSITE_B_SPLINE_MATRIX, COMPOSITE_B_SPLINE_BURA
     }
 }
