@@ -63,11 +63,6 @@ public class BezierCurveController {
             isMovingPoint = false;
         } else {
             // Add new point
-            if (mainCurveMode.isClosed()) {
-                mainCurveMode = CurveMode.getInstance(mainCurveMode.getCurveModeEnum());
-                repeatingCurveMode = CurveMode.getInstance(repeatingCurveMode.getCurveModeEnum());
-            }
-
             mainCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
             repeatingCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.valueOf("#ccffcc")), repeatingCanvas);
 
@@ -96,6 +91,9 @@ public class BezierCurveController {
                 PixelatedCanvas.getRGBFromColor(Color.BLACK),
                 PixelatedCanvas.getRGBFromColor(Color.valueOf("#ccffcc")),
                 repeatingCanvas);
+
+        mainCurveMode = CurveMode.getInstance(mainCurveMode.getCurveModeEnum());
+        repeatingCurveMode = CurveMode.getInstance(repeatingCurveMode.getCurveModeEnum());
     }
 
     @FXML

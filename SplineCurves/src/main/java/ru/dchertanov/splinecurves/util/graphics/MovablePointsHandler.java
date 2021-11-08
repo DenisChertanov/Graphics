@@ -116,6 +116,16 @@ public class MovablePointsHandler {
         points.add(points.get(0));
     }
 
+    public void closeCompositeBSpline() {
+        if (points.size() < 4) {
+            return;
+        }
+
+        addPoint(points.get(0));
+        addPoint(points.get(1));
+        addPoint(points.get(2));
+    }
+
     public void clearPoints() {
         points.clear();
     }

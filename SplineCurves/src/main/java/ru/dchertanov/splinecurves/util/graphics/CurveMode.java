@@ -37,10 +37,12 @@ public final class CurveMode {
         isClosed = true;
 
         removePreviousCurve(backgroundColor, canvas);
-        if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY_MATRIX)) {
+        if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY_MATRIX) || curveModeEnum.equals(CurveModeEnum.ELEMENTARY_CASTELJAU)) {
             movablePointsHandler.addPoint(movablePointsHandler.getPoint(0));
-        } else {
+        } else if (curveModeEnum.equals(CurveModeEnum.COMPOSITE_MATRIX) || curveModeEnum.equals(CurveModeEnum.COMPOSITE_CASTELJAU)) {
             movablePointsHandler.closeCompositeCurve();
+        } else {
+            movablePointsHandler.closeCompositeBSpline();
         }
         drawCurve(pointColorRGB, borderColorRGB, curveColorRGB, canvas);
     }
