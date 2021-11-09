@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import ru.dchertanov.splinecurves.util.graphics.PixelatedCanvas?>
+<GridPane style="-fx-background-color: #ccffcc;"
+          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.dchertanov.splinecurves.controller.BezierCurveController">
+
+    <padding>
+        <Insets left="5" right="50" top="5" bottom="5"/>
+    </padding>
+
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="5"/>
+        </padding>
+        <Label>Кривые Безье:</Label>
+        <Button text="Элементарная произвольного порядка" wrapText="true" onMouseClicked="#setElementaryModeBezier"/>
+        <Button text="Составная из элементарных 3го порядка" wrapText="true" onMouseClicked="#setCompositeModeBezier"/>
+    </VBox>
+
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="5"/>
+        </padding>
+        <Label>B-сплайны:</Label>
+        <Button text="Составная из элементарных 3го порядка" wrapText="true" onMouseClicked="#setCompositeModeBSpline"/>
+    </VBox>
+
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="5"/>
+        </padding>
+        <Button text="Замкнуть" onMouseClicked="#onCloseCurveClick"/>
+    </VBox>
+
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="3"
+                style="-fx-background: white; -fx-border-color: black;">
+        <GridPane.margin>
+            <Insets right="20" left="10"/>
+        </GridPane.margin>
+        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0"
+                         onMouseDragged="#onMainCanvasDragged"
+                         onMousePressed="#onMainCanvasPressed"
+                         onMouseReleased="#onMainCanvasReleased"/>
+    </ScrollPane>
+    <ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="3"
+                style="-fx-border-color: black; -fx-background: #ccffcc;">
+        <GridPane.margin>
+            <Insets left="20"/>
+        </GridPane.margin>
+        <PixelatedCanvas fx:id="repeatingCanvas" height="2000.0" width="2000.0"/>
+    </ScrollPane>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1" spacing="5">
+        <GridPane.margin>
+            <Insets right="20"/>
+        </GridPane.margin>
+        <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1" spacing="5">
+        <Button onMouseClicked="#onPlusRepeatingCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusRepeatingCanvasClick" text="-"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="2"
+          GridPane.rowSpan="1">
+        <Button text="Очистить" onMouseClicked="#onClearButtonClick"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button text="О программе" onMouseClicked="#aboutButtonClick"/>
+    </HBox>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" minWidth="160" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+    </rowConstraints>
+</GridPane>
