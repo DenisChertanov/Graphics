@@ -14,6 +14,13 @@ public final class ElementaryMatrixBSpline {
     private ElementaryMatrixBSpline() {
     }
 
+    /**
+     * Method calculates pixels on curve (by matrix algo), draws its on given canvas
+     *
+     * @param points   list of reference points
+     * @param colorRGB color for curve
+     * @param canvas
+     */
     public static void drawBezierCurve(List<Point> points, int colorRGB, PixelatedCanvas canvas) {
         if (points.size() != 4)
             return;
@@ -29,6 +36,15 @@ public final class ElementaryMatrixBSpline {
         canvas.drawCurveLineByPoints(pixels, colorRGB);
     }
 
+    /**
+     * Method calculates coordinates of next point on curve <p>
+     * x(t) = 1/6 * ((1 - t)^3 * x0 + (3 * t^3 - 6 * t^2 + 4) * x1 + (-3 * t^3 + 3 * t^2 + 3 * t + 1) * x2 + t^3 * x3)
+     *
+     * @param points             list of reference points
+     * @param t                  ratio
+     * @param coordinateFunction function for getting needed coordinate from point
+     * @return X or Y coordinate for next point on curve
+     */
     private static int getNextCoordinate(List<Point> points, double t, Function<Point, Integer> coordinateFunction) {
         double coordinate = 0.0;
 
