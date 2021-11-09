@@ -41,11 +41,11 @@
     </VBox>
 
     <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="3"
-                style="-fx-background: white; -fx-border-color: black;">
+                style="-fx-background: gray; -fx-border-color: black; -fx-background-color: gray">
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
-        <PixelatedCanvas fx:id="mainCanvas" height="2000.0" width="2000.0"
+        <PixelatedCanvas fx:id="mainCanvas" height="3000.0" width="3000.0" style="-fx-background-color: white"
                          onMouseDragged="#onMainCanvasDragged"
                          onMousePressed="#onMainCanvasPressed"
                          onMouseReleased="#onMainCanvasReleased"/>
@@ -55,7 +55,7 @@
         <GridPane.margin>
             <Insets left="20"/>
         </GridPane.margin>
-        <PixelatedCanvas fx:id="repeatingCanvas" height="2000.0" width="2000.0"/>
+        <PixelatedCanvas fx:id="repeatingCanvas" height="3000.0" width="3000.0"/>
     </ScrollPane>
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"

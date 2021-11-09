@@ -22,6 +22,15 @@ public class BezierCurveController {
     private CurveMode mainCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX);
     private CurveMode repeatingCurveMode = CurveMode.getInstance(CurveMode.CurveModeEnum.ELEMENTARY_CASTELJAU);
 
+    public void initialize() {
+        var gc = mainCanvas.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+
+        onMinusMainCanvasClick();
+        onMinusRepeatingCanvasClick();
+    }
+
     @FXML
     protected void onMainCanvasPressed(MouseEvent mouseEvent) {
         Optional<Integer> movingPoint = mainCurveMode.getNearestPoint(new Point(mouseEvent));
@@ -141,6 +150,10 @@ public class BezierCurveController {
         repeatingCurveMode.clearPoints();
         mainCanvas.clearCanvas();
         repeatingCanvas.clearCanvas();
+
+        var gc = mainCanvas.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
     }
 
     public static void zoom(Canvas canvas, boolean increase) {

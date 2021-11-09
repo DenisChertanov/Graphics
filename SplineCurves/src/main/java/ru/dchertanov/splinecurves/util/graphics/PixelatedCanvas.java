@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PixelatedCanvas extends Canvas {
-    private final int canvasSide = 2000;
+    private final int canvasSide = 3000;
     private final int pixelSide = 2;
     private final int[][] pixelsColor = new int[canvasSide][canvasSide];
     private final boolean[][] usedForFill = new boolean[canvasSide][canvasSide];
@@ -55,7 +55,7 @@ public class PixelatedCanvas extends Canvas {
         GraphicsContext gc = getGraphicsContext2D();
         gc.setFill(getColorFromRGB(rgb));
         for (Point point : pixels) {
-            if (!isPixelInsideCanvas(point.getX() * pixelSide, point.getY() * pixelSide))
+            if (!isPixelInsideCanvas(point.getX(), point.getY()))
                 continue;
 
             if (endOfDrawing) {
@@ -76,7 +76,7 @@ public class PixelatedCanvas extends Canvas {
 
         GraphicsContext gc = getGraphicsContext2D();
         for (Point point : pixels) {
-            if (!isPixelInsideCanvas(point.getX() * pixelSide, point.getY() * pixelSide))
+            if (!isPixelInsideCanvas(point.getX(), point.getY()))
                 continue;
 
             gc.setFill(getColorFromRGB(pixelsColor[point.getY() * pixelSide][point.getX() * pixelSide]));

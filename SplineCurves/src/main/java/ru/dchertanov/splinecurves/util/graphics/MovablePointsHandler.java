@@ -81,7 +81,7 @@ public class MovablePointsHandler {
         for (var point : points) {
             Circle circle = (Circle) Figure.getInstance("circle");
             circle.setFigureStartPoint(point.getX(), point.getY());
-            circle.generatePixelsWithRadius(2);
+            circle.generatePixelsWithRadius(4);
             circle.drawFigure(colorRBG, canvas);
             FillFigures.fillByRowsWithPoint(canvas, colorRBG, circle.getStartPoint());
         }
