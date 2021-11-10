@@ -1,5 +1,6 @@
 package ru.dchertanov.splinecurves.util.graphics;
 
+import javafx.scene.paint.Color;
 import ru.dchertanov.splinecurves.algo.ElementaryCasteljauBezierCurve;
 import ru.dchertanov.splinecurves.algo.ElementaryMatrixBSpline;
 import ru.dchertanov.splinecurves.algo.ElementaryMatrixBezierCurve;
@@ -20,12 +21,6 @@ public final class CurveMode {
         this.curveModeEnum = curveModeEnum;
     }
 
-    public void removePreviousCurve(int colorRGB, PixelatedCanvas canvas) {
-        movablePointsHandler.drawPoints(colorRGB, canvas);
-        movablePointsHandler.drawBorder(colorRGB, canvas);
-        curveDrawer.apply(colorRGB, canvas, curveDrawerAlgo);
-    }
-
     public void drawCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, PixelatedCanvas canvas) {
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
         movablePointsHandler.drawBorder(borderColorRGB, canvas);
@@ -33,10 +28,10 @@ public final class CurveMode {
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
     }
 
-    public void closeCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, int backgroundColor, PixelatedCanvas canvas) {
+    public void closeCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, Color backgroundColor, PixelatedCanvas canvas) {
         isClosed = true;
 
-        removePreviousCurve(backgroundColor, canvas);
+        canvas.clearCanvas(backgroundColor);
         if (curveModeEnum.equals(CurveModeEnum.ELEMENTARY_MATRIX) || curveModeEnum.equals(CurveModeEnum.ELEMENTARY_CASTELJAU)) {
             movablePointsHandler.addPoint(movablePointsHandler.getPoint(0));
         } else if (curveModeEnum.equals(CurveModeEnum.COMPOSITE_MATRIX) || curveModeEnum.equals(CurveModeEnum.COMPOSITE_CASTELJAU)) {

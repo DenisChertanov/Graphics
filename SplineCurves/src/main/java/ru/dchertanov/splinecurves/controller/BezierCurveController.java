@@ -44,8 +44,8 @@ public class BezierCurveController {
     @FXML
     protected void onMainCanvasDragged(MouseEvent mouseEvent) {
         if (isMovingPoint) {
-            mainCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
-            repeatingCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.valueOf("#ccffcc")), repeatingCanvas);
+            mainCanvas.clearCanvas(Color.WHITE);
+            repeatingCanvas.clearCanvas(Color.valueOf("#ccffcc"));
 
             mainCurveMode.replacePoint(movingPointIndex, new Point(mouseEvent));
             repeatingCurveMode.replacePoint(movingPointIndex, new Point(mouseEvent));
@@ -67,8 +67,8 @@ public class BezierCurveController {
             isMovingPoint = false;
         } else {
             // Add new point
-            mainCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.WHITE), mainCanvas);
-            repeatingCurveMode.removePreviousCurve(PixelatedCanvas.getRGBFromColor(Color.valueOf("#ccffcc")), repeatingCanvas);
+            mainCanvas.clearCanvas(Color.WHITE);
+            repeatingCanvas.clearCanvas(Color.valueOf("#ccffcc"));
 
             mainCurveMode.addPoint(new Point(mouseEvent));
             repeatingCurveMode.addPoint(new Point(mouseEvent));
@@ -88,12 +88,12 @@ public class BezierCurveController {
         mainCurveMode.closeCurve(PixelatedCanvas.getRGBFromColor(Color.RED),
                 PixelatedCanvas.getRGBFromColor(Color.BLUE),
                 PixelatedCanvas.getRGBFromColor(Color.BLACK),
-                PixelatedCanvas.getRGBFromColor(Color.WHITE),
+                Color.WHITE,
                 mainCanvas);
         repeatingCurveMode.closeCurve(PixelatedCanvas.getRGBFromColor(Color.RED),
                 PixelatedCanvas.getRGBFromColor(Color.BLUE),
                 PixelatedCanvas.getRGBFromColor(Color.BLACK),
-                PixelatedCanvas.getRGBFromColor(Color.valueOf("#ccffcc")),
+                Color.valueOf("#ccffcc"),
                 repeatingCanvas);
 
         mainCurveMode = CurveMode.getInstance(mainCurveMode.getCurveModeEnum());
@@ -151,9 +151,8 @@ public class BezierCurveController {
         mainCanvas.clearCanvas();
         repeatingCanvas.clearCanvas();
 
-        var gc = mainCanvas.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+        mainCanvas.clearCanvas(Color.WHITE);
+        repeatingCanvas.clearCanvas(Color.valueOf("#ccffcc"));
     }
 
     public static void zoom(Canvas canvas, boolean increase) {

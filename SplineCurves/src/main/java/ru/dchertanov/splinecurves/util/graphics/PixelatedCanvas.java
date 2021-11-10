@@ -152,4 +152,11 @@ public class PixelatedCanvas extends Canvas {
             Arrays.fill(pixelsColor[i], getRGBFromColor(Color.WHITE));
         }
     }
+
+    public void clearCanvas(Color backgroundColor) {
+        var gc = getGraphicsContext2D();
+        gc.setFill(backgroundColor);
+        gc.fillRect(0, 0, getWidth(), getHeight());
+        clearPixelsColor();
+    }
 }
