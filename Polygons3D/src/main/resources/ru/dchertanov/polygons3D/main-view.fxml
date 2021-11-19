@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<GridPane style="-fx-background-color: #ccffcc;"
+          xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="ru.dchertanov.polygons3D.controller.MainViewController">
+
+    <padding>
+        <Insets left="5" right="50" top="5" bottom="5"/>
+    </padding>
+
+    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <padding>
+            <Insets right="10" left="5">
+            </Insets>
+        </padding>
+
+        <GridPane hgap="10">
+            <Button text="Тетраэдр" maxWidth="Infinity"
+                    GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+            </Button>
+            <Button text="Куб" maxWidth="Infinity"
+                    GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+            </Button>
+
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="50"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="50"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+            </rowConstraints>
+        </GridPane>
+
+        <Label text="Вращение" maxWidth="Infinity" alignment="CENTER"/>
+        <Label text="X"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Y"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Z"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+
+        <Label text="Сдвиг" maxWidth="Infinity" alignment="CENTER"/>
+        <Label text="X"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Y"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Z"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+
+        <Label text="Масштабирование" maxWidth="Infinity" alignment="CENTER"/>
+        <Label text="X"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Y"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Z"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+        <Label text="Все оси"/>
+        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+                showTickMarks="true"/>
+    </VBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button onMouseClicked="#aboutButtonClick" text="О программе"/>
+    </HBox>
+
+    <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
+                style="-fx-background: white; -fx-border-color: black;">
+        <GridPane.margin>
+            <Insets right="20" left="10"/>
+        </GridPane.margin>
+        <Canvas fx:id="mainCanvas" height="2000.0" width="2000.0"/>
+    </ScrollPane>
+
+    <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+          GridPane.rowSpan="1" spacing="5">
+        <GridPane.margin>
+            <Insets left="10"/>
+        </GridPane.margin>
+        <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
+        <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
+
+        <fx:define>
+            <ToggleGroup fx:id="orderGroup" />
+        </fx:define>
+        <RadioButton text="Сдвиг-Вращение" toggleGroup="$orderGroup">
+            <HBox.margin>
+                <Insets left="100"/>
+            </HBox.margin>
+        </RadioButton>
+        <RadioButton text="Вращение-Сдвиг" toggleGroup="$orderGroup"/>
+
+        <fx:define>
+            <ToggleGroup fx:id="projectionGroup" />
+        </fx:define>
+        <RadioButton text="Параллельная" toggleGroup="$projectionGroup">
+            <HBox.margin>
+                <Insets left="100"/>
+            </HBox.margin>
+        </RadioButton>
+        <RadioButton text="Точечная (дальняя)" toggleGroup="$projectionGroup"/>
+        <RadioButton text="Точечная (ближняя)" toggleGroup="$projectionGroup"/>
+    </HBox>
+
+    <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"
+          GridPane.rowSpan="1">
+        <Button text="Сбросить"/>
+    </HBox>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" minWidth="200" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+        <RowConstraints vgrow="ALWAYS" valignment="CENTER"/>
+        <RowConstraints vgrow="NEVER" minHeight="50" valignment="CENTER"/>
+    </rowConstraints>
+</GridPane>
+
