@@ -24,11 +24,13 @@
         </padding>
 
         <GridPane hgap="10">
-            <Button text="Тетраэдр" maxWidth="Infinity"
-                    GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
-            </Button>
             <Button text="Куб" maxWidth="Infinity"
-                    GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1">
+                    GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1"
+                    onMouseClicked="#setCube">
+            </Button>
+            <Button text="Тетраэдр" maxWidth="Infinity"
+                    GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1" GridPane.rowSpan="1"
+                    onMouseClicked="#setTetrahedron">
             </Button>
 
             <columnConstraints>
@@ -42,38 +44,48 @@
 
         <Label text="Вращение" maxWidth="Infinity" alignment="CENTER"/>
         <Label text="X"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="xRotation" maxWidth="Infinity" min="0" max="360" showTickLabels="true" majorTickUnit="90"
+                minorTickCount="10"
                 showTickMarks="true"/>
         <Label text="Y"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="yRotation" maxWidth="Infinity" min="0" max="360" showTickLabels="true" majorTickUnit="90"
+                minorTickCount="10"
                 showTickMarks="true"/>
         <Label text="Z"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="zRotation" maxWidth="Infinity" min="0" max="360" showTickLabels="true" majorTickUnit="90"
+                minorTickCount="10"
                 showTickMarks="true"/>
 
         <Label text="Сдвиг" maxWidth="Infinity" alignment="CENTER"/>
         <Label text="X"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="xShift" maxWidth="Infinity" min="-500" max="500" showTickLabels="true" majorTickUnit="100"
+                minorTickCount="10"
                 showTickMarks="true"/>
         <Label text="Y"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="yShift" maxWidth="Infinity" min="-500" max="500" showTickLabels="true" majorTickUnit="100"
+                minorTickCount="10"
                 showTickMarks="true"/>
         <Label text="Z"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="zShift" maxWidth="Infinity" min="-500" max="500" showTickLabels="true" majorTickUnit="100"
+                minorTickCount="10"
                 showTickMarks="true"/>
 
         <Label text="Масштабирование" maxWidth="Infinity" alignment="CENTER"/>
         <Label text="X"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="xScaling" maxWidth="Infinity" min="1" max="5" showTickLabels="true" majorTickUnit="1"
+                minorTickCount="5"
                 showTickMarks="true"/>
         <Label text="Y"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="yScaling" maxWidth="Infinity" min="1" max="5" showTickLabels="true" majorTickUnit="1"
+                minorTickCount="5"
                 showTickMarks="true"/>
         <Label text="Z"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="zScaling" maxWidth="Infinity" min="1" max="5" showTickLabels="true" majorTickUnit="1"
+                minorTickCount="5"
                 showTickMarks="true"/>
         <Label text="Все оси"/>
-        <Slider maxWidth="Infinity" min="-40" max="40" showTickLabels="true" majorTickUnit="10" minorTickCount="10"
+        <Slider fx:id="xyzScaling" maxWidth="Infinity" min="1" max="5" showTickLabels="true" majorTickUnit="1"
+                minorTickCount="5"
                 showTickMarks="true"/>
     </VBox>
 
@@ -83,7 +95,8 @@
     </HBox>
 
     <ScrollPane GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1" GridPane.rowSpan="1"
-                style="-fx-background: white; -fx-border-color: black;">
+                style="-fx-background: white; -fx-border-color: black;"
+                hvalue="0.5" vvalue="0.5">
         <GridPane.margin>
             <Insets right="20" left="10"/>
         </GridPane.margin>
@@ -95,23 +108,21 @@
         <GridPane.margin>
             <Insets left="10"/>
         </GridPane.margin>
-        <Button onMouseClicked="#onPlusMainCanvasClick" text="+"/>
-        <Button onMouseClicked="#onMinusMainCanvasClick" text="-"/>
 
         <fx:define>
-            <ToggleGroup fx:id="orderGroup" />
+            <ToggleGroup fx:id="orderGroup"/>
         </fx:define>
-        <RadioButton text="Сдвиг-Вращение" toggleGroup="$orderGroup">
+        <RadioButton fx:id="shiftRotate" text="Сдвиг-Вращение" toggleGroup="$orderGroup" selected="true">
             <HBox.margin>
                 <Insets left="100"/>
             </HBox.margin>
         </RadioButton>
-        <RadioButton text="Вращение-Сдвиг" toggleGroup="$orderGroup"/>
+        <RadioButton fx:id="rotateShift" text="Вращение-Сдвиг" toggleGroup="$orderGroup"/>
 
         <fx:define>
-            <ToggleGroup fx:id="projectionGroup" />
+            <ToggleGroup fx:id="projectionGroup"/>
         </fx:define>
-        <RadioButton text="Параллельная" toggleGroup="$projectionGroup">
+        <RadioButton text="Параллельная" toggleGroup="$projectionGroup" selected="true">
             <HBox.margin>
                 <Insets left="100"/>
             </HBox.margin>
@@ -122,7 +133,7 @@
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"
           GridPane.rowSpan="1">
-        <Button text="Сбросить"/>
+        <Button text="Сбросить" onMouseClicked="#dump"/>
     </HBox>
 
     <columnConstraints>
