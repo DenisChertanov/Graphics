@@ -31,10 +31,13 @@ public abstract class Figure {
 
     public abstract Figure clone(Figure figure);
 
+    // Figure changing
     public Figure applyChanges() {
         Figure changedFigure = clone(this);
+        // Handle scaling
         changedFigure = scaling.applyScalingToFigure(changedFigure);
 
+        // Handle shift/rotation order
         if (shiftFirst) {
             changedFigure = shift.applyShiftToFigure(changedFigure);
             changedFigure = rotation.applyRotationToFigure(changedFigure);
@@ -43,6 +46,7 @@ public abstract class Figure {
             changedFigure = shift.applyShiftToFigure(changedFigure);
         }
 
+        // Handle projection
         if (!parallelProjection) {
             changedFigure = singlePointProjection.applySinglePointProjectionToFigure(changedFigure);
         }
