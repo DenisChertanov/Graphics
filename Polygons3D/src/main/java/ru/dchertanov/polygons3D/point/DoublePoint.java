@@ -3,10 +3,10 @@ package ru.dchertanov.polygons3D.point;
 import ru.dchertanov.polygons3D.util.Matrix;
 
 public class DoublePoint {
-    private final double x;
-    private final double y;
-    private final double z;
-    private final double h;
+    private double x;
+    private double y;
+    private double z;
+    private double h;
 
     public DoublePoint(double x, double y, double z) {
         this.x = x;
@@ -38,6 +38,12 @@ public class DoublePoint {
 
     public Matrix getMatrixWithExtraCoordinate() {
         return new Matrix(new double[][] {{x, y, z, h}});
+    }
+
+    public void divH() {
+        x /= h;
+        y /= h;
+        z /= h;
     }
 
     public double getX() {

@@ -122,13 +122,21 @@
         <fx:define>
             <ToggleGroup fx:id="projectionGroup"/>
         </fx:define>
-        <RadioButton text="Параллельная" toggleGroup="$projectionGroup" selected="true">
+        <RadioButton fx:id="parallelProjection" text="Параллельная" toggleGroup="$projectionGroup" selected="true">
             <HBox.margin>
                 <Insets left="100"/>
             </HBox.margin>
         </RadioButton>
-        <RadioButton text="Точечная (дальняя)" toggleGroup="$projectionGroup"/>
-        <RadioButton text="Точечная (ближняя)" toggleGroup="$projectionGroup"/>
+        <RadioButton fx:id="singlePointProjection" text="Точечная" toggleGroup="$projectionGroup"/>
+
+        <Label text="Фок.расстояние">
+            <HBox.margin>
+                <Insets left="50"/>
+            </HBox.margin>
+        </Label>
+        <Slider fx:id="cameraSlider" maxWidth="Infinity" min="0" max="1000" showTickLabels="true" majorTickUnit="100"
+                minorTickCount="10" value="500"
+                showTickMarks="true"/>
     </HBox>
 
     <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"

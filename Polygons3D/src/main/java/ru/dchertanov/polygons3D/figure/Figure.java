@@ -4,6 +4,7 @@ import ru.dchertanov.polygons3D.point.DoublePoint;
 import ru.dchertanov.polygons3D.transformation.Rotation;
 import ru.dchertanov.polygons3D.transformation.Scaling;
 import ru.dchertanov.polygons3D.transformation.Shift;
+import ru.dchertanov.polygons3D.transformation.SinglePointProjection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ public abstract class Figure {
     public Rotation rotation = new Rotation(0, 0, 0);
     public Shift shift = new Shift(0, 0, 0);
     public Scaling scaling = new Scaling(1, 1, 1, 1);
+    public SinglePointProjection singlePointProjection = new SinglePointProjection(500);
     public boolean shiftFirst = true;
+    public boolean parallelProjection = true;
 
     public Figure() {
         points = new ArrayList<>();
@@ -38,6 +41,10 @@ public abstract class Figure {
         } else {
             changedFigure = rotation.applyRotationToFigure(changedFigure);
             changedFigure = shift.applyShiftToFigure(changedFigure);
+        }
+
+        if (!parallelProjection) {
+            changedFigure = singlePointProjection.applySinglePointProjectionToFigure(changedFigure);
         }
 
         return changedFigure;

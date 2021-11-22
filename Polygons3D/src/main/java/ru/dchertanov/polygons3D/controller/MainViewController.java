@@ -38,6 +38,12 @@ public class MainViewController {
     private RadioButton shiftRotate;
     @FXML
     private RadioButton rotateShift;
+    @FXML
+    private Slider cameraSlider;
+    @FXML
+    private RadioButton parallelProjection;
+    @FXML
+    private RadioButton singlePointProjection;
 
     private final CanvasDrawer canvasDrawer = new CanvasDrawer();
 
@@ -117,6 +123,24 @@ public class MainViewController {
             clear();
             canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
         });
+
+        // camera slider
+        cameraSlider.valueProperty().addListener(val -> {
+            canvasDrawer.figure.singlePointProjection.setFocusDistance(cameraSlider.getValue());
+            clear();
+            canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
+        });
+        // projection radio buttons
+        parallelProjection.setOnAction(actionEvent -> {
+            canvasDrawer.figure.parallelProjection = true;
+            clear();
+            canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
+        });
+        singlePointProjection.setOnAction(actionEvent -> {
+            canvasDrawer.figure.parallelProjection = false;
+            clear();
+            canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
+        });
     }
 
     @FXML
@@ -129,10 +153,12 @@ public class MainViewController {
         yShift.setValue(0);
         zShift.setValue(0);
 
-        xScaling.setValue(0);
-        yScaling.setValue(0);
-        zScaling.setValue(0);
-        xyzScaling.setValue(0);
+        xScaling.setValue(1);
+        yScaling.setValue(1);
+        zScaling.setValue(1);
+        xyzScaling.setValue(1);
+
+        cameraSlider.setValue(500);
 
         canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
     }
