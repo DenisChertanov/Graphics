@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Scale;
+import javafx.scene.transform.Transform;
 import ru.dchertanov.polygons3D.drawer.CanvasDrawer;
 import ru.dchertanov.polygons3D.figure.Cube;
 import ru.dchertanov.polygons3D.figure.Tetrahedron;
@@ -48,6 +49,7 @@ public class MainViewController {
     private final CanvasDrawer canvasDrawer = new CanvasDrawer();
 
     public void initialize() {
+        drawCoordinateArrows(mainCanvas, 300, 300);
         canvasDrawer.drawFigure(mainCanvas, Color.BLACK);
 
         // rotation sliders
@@ -183,6 +185,7 @@ public class MainViewController {
         var graphics = mainCanvas.getGraphicsContext2D();
         graphics.setFill(Color.WHITE);
         graphics.fillRect(0, 0, mainCanvas.getWidth(), mainCanvas.getHeight());
+        drawCoordinateArrows(mainCanvas, 300, 300);
     }
 
     @FXML
@@ -202,5 +205,45 @@ public class MainViewController {
         alert.setResizable(true);
         alert.getDialogPane().setPrefSize(600, 300);
         alert.showAndWait();
+    }
+
+    private void drawArrow(Canvas canvas, double x0, double y0, double x1, double y1) {
+        var g2 = canvas.getGraphicsContext2D();
+        g2.setStroke(Color.BLACK);
+        g2.setFill(Color.BLACK);
+
+        g2.strokeLine(x0, y0, x1, y1);
+
+        double angle = Math.toDegrees(Math.atan2(y1 - y0, x1 - x0)) + 90;
+        var rotation = Transform.rotate(angle, x1, y1);
+
+        double side = 10;
+        double cos30 = 0.87;
+        double[] points = new double[]{x1 - side / 2, y1, x1 + side / 2, y1, x1, y1 - cos30 * side};
+        double[] rotated = new double[6];
+
+        rotation.transform2DPoints(points, 0, rotated, 0, 3);
+
+        g2.fillPolygon(new double[]{rotated[0], rotated[2], rotated[4]},
+                new double[]{rotated[1], rotated[3], rotated[5]}, 3);
+    }
+
+    private void drawCoordinateArrows(Canvas canvas, double xArrowSize, double yArrowSize) {
+        var g2 = canvas.getGraphicsContext2D();
+        g2.setStroke(Color.BLACK);
+        double x0 = canvas.getWidth() / 2;
+        double y0 = canvas.getHeight() / 2;
+
+        drawArrow(canvas, x0, y0, x0 + xArrowSize, y0);
+        drawArrow(canvas, x0, y0, x0, y0 - yArrowSize);
+
+        g2.strokeText("x", x0 + xArrowSize + 20, y0);
+        g2.strokeText("y", x0, y0 - yArrowSize - 20);
+
+        g2.setFill(Color.WHITE);
+//        g2.fillOval(x0 - 6, y0 - 6, 12, 12);
+//        g2.strokeOval(x0 - 6, y0 - 6, 12, 12);
+//        g2.setFill(Color.BLACK);
+//        g2.fillOval(x0 - 2, y0 - 2, 4, 4);
     }
 }
