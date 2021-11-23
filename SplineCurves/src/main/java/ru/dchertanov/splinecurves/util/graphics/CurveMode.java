@@ -58,11 +58,12 @@ public final class CurveMode {
     }
 
     public Optional<Integer> getNearestPoint(Point point) {
-        return movablePointsHandler.getNearestPoint(point);
+        return movablePointsHandler.getNearestPoint(point, isClosed, curveModeEnum);
     }
 
     public void clearPoints() {
         movablePointsHandler.clearPoints();
+        isClosed = false;
     }
 
     public CurveModeEnum getCurveModeEnum() {

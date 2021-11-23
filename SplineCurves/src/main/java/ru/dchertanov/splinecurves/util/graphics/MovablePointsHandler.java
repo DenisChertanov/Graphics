@@ -15,10 +15,25 @@ public class MovablePointsHandler {
     private final static int PATTERN_CURVE_POINTS_NUMBER = 4;
     private final List<Point> points = new ArrayList<>();
 
-    public Optional<Integer> getNearestPoint(Point checkedPoint) {
+    public Optional<Integer> getNearestPoint(Point checkedPoint, boolean isClosed, CurveMode.CurveModeEnum curveModeEnum) {
         for (int i = 0; i < points.size(); ++i) {
             if (Point.getDistance(checkedPoint, points.get(i)) <= DELTA_PIXELS) {
-                return Optional.of(i);
+                if (!isClosed) {
+                    return Optional.of(i);
+                } else if (curveModeEnum.equals(CurveMode.CurveModeEnum.COMPOSITE_MATRIX)
+                        || curveModeEnum.equals(CurveMode.CurveModeEnum.COMPOSITE_CASTELJAU)) {
+                    if (i > 1 && i < points.size() - 4) {
+                        return Optional.of(i);
+                    }
+                } else if (curveModeEnum.equals(CurveMode.CurveModeEnum.ELEMENTARY_MATRIX)) {
+                    if (i != 0 && i != points.size() - 1) {
+                        return Optional.of(i);
+                    }
+                } else if (curveModeEnum.equals(CurveMode.CurveModeEnum.COMPOSITE_B_SPLINE_MATRIX)) {
+                    if (i > 2 && i < points.size() - 3) {
+                        return Optional.of(i);
+                    }
+                }
             }
         }
 
