@@ -27,7 +27,7 @@ public final class ElementaryMatrixBSpline {
 
         List<Point> pixels = new ArrayList<>();
 
-        for (double t = 0; t <= 1.0; t += DELTA_T) {
+        for (double t = 0; t < 1.01; t += DELTA_T) {
             int x = getNextCoordinate(points, t, Point::getX);
             int y = getNextCoordinate(points, t, Point::getY);
             pixels.add(new Point(x, y));

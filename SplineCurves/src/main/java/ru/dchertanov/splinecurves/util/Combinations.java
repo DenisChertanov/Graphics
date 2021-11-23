@@ -20,7 +20,7 @@ public final class Combinations {
     private Combinations() {
     }
 
-    public static int getCombinations(int n, int k) {
+    public static long getCombinations(int n, int k) {
         if (n > MAX_N || k < 0 || k > n) {
             throw new IllegalArgumentException();
         }
@@ -29,6 +29,6 @@ public final class Combinations {
         return nFact
                 .divide(factorials.get(k))
                 .divide(factorials.get(n - k))
-                .intValue();
+                .longValue();
     }
 }

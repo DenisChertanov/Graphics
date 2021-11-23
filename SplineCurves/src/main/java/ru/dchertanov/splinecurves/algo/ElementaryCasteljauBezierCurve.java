@@ -26,7 +26,7 @@ public final class ElementaryCasteljauBezierCurve {
 
         List<Point> pixels = new ArrayList<>();
 
-        for (double t = 0; t <= 1.0; t += DELTA_T) {
+        for (double t = 0; t < 1.01; t += DELTA_T) {
             pixels.add(getNextCurvePoint(DoublePoint.transformNonDoublePoints(points), t));
         }
         canvas.drawCurveLineByPoints(pixels, colorRGB);
