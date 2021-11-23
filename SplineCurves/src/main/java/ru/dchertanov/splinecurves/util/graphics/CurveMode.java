@@ -22,10 +22,17 @@ public final class CurveMode {
     }
 
     public void drawCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, PixelatedCanvas canvas) {
-        movablePointsHandler.drawPoints(pointColorRGB, canvas);
+        drawPoints(pointColorRGB, canvas);
         movablePointsHandler.drawBorder(borderColorRGB, canvas);
         curveDrawer.apply(curveColorRGB, canvas, curveDrawerAlgo);
+        drawPoints(pointColorRGB, canvas);
+    }
+
+    private void drawPoints(int pointColorRGB, PixelatedCanvas canvas) {
         movablePointsHandler.drawPoints(pointColorRGB, canvas);
+        if (curveModeEnum.equals(CurveModeEnum.COMPOSITE_MATRIX) || curveModeEnum.equals(CurveModeEnum.COMPOSITE_CASTELJAU)) {
+            movablePointsHandler.drawExtraPoints(PixelatedCanvas.getRGBFromColor(Color.GREEN), canvas, isClosed);
+        }
     }
 
     public void closeCurve(int pointColorRGB, int borderColorRGB, int curveColorRGB, Color backgroundColor, PixelatedCanvas canvas) {

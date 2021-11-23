@@ -79,11 +79,33 @@ public class MovablePointsHandler {
 
     public void drawPoints(int colorRBG, PixelatedCanvas canvas) {
         for (var point : points) {
-            Circle circle = (Circle) Figure.getInstance("circle");
-            circle.setFigureStartPoint(point.getX(), point.getY());
-            circle.generatePixelsWithRadius(4);
-            circle.drawFigure(colorRBG, canvas);
-            FillFigures.fillByRowsWithPoint(canvas, colorRBG, circle.getStartPoint());
+            drawPoint(point, colorRBG, canvas);
+        }
+    }
+
+    private void drawPoint(Point point, int colorRBG, PixelatedCanvas canvas) {
+        Circle circle = (Circle) Figure.getInstance("circle");
+        circle.setFigureStartPoint(point.getX(), point.getY());
+        circle.generatePixelsWithRadius(4);
+        circle.drawFigure(colorRBG, canvas);
+        FillFigures.fillByRowsWithPoint(canvas, colorRBG, circle.getStartPoint());
+    }
+
+    public void drawExtraPoints(int colorRGB, PixelatedCanvas canvas, boolean isClosed) {
+        for (int index = 0; index < points.size(); index += 2) {
+            if (index + PATTERN_CURVE_POINTS_NUMBER > points.size()) {
+                break;
+            }
+
+            var startPoint = getStartPointForCompositeCurve(index);
+            var endPoint = getEndPointForCompositeCurve(index);
+
+            if (!points.contains(startPoint)) {
+                drawPoint(startPoint, colorRGB, canvas);
+            }
+            if (!points.contains(endPoint) || (isClosed && endPoint.equals(points.get(0)))) {
+                drawPoint(endPoint, colorRGB, canvas);
+            }
         }
     }
 
