@@ -1,4 +1,4 @@
-module ru.dchertanov.fillandclippingdemo {
+module ru.dchertanov.splinecurves {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
